@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>买车</title>
+    <style>
+        body {
+            background-color: white;
+        }
+
+        .brand {
+            display: flex;
+        }
+
+        .price {
+            display: flex;
+        }
+
+        /*筛选条件*/
+        .filter_price{
+            margin: 0px 30px;
+            cursor: pointer;
+            color: #56585a;
+        }
+        .filter_brand{
+            margin: 0px 30px;
+            cursor: pointer;
+            color: #56585a;
+        }
+
+        /*车辆信息*/
+        .car_info {
+            float: none;
+        }
+
+        .list_vehicle {
+            float: left;
+            padding-left: 0px;
+            margin: 0px 15px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="common/header :: header"></div>
+<div class="brand">
+    <div style="float: left; padding-left:15px; margin-top: 40px; margin-bottom: 5px; margin-left: 150px; display: flex;
+                        height: 20px;">
+        <span style="padding: 5px 5px; color: #56585a; background-color: #dfe1e3;
+              text-align: center; height: 20px; line-height: 20px">品牌:
+        </span>
+        <div style="display: flex;float:left; text-align: center; height: 20px;
+                                padding: 5px 20px;">
+            <form id="brand_form" action="/getVehiclesByBrand" method="post" style="display: none">
+                <input id="data" type="hidden" value="" name="brand">
+            </form>
+            <span class="filter_brand">宝马</span>
+            <span class="filter_brand">奔驰</span>
+            <span class="filter_brand">奥迪</span>
+        </div>
+    </div>
+</div>
+<div class="price">
+    <div style="float: left; padding-left:15px; margin: 10px 150px; display: flex;
+                        height: 20px;">
+            <span style="padding: 5px 5px; color: #56585a; background-color: #dfe1e3;
+                        text-align: center; height: 20px; line-height: 20px">价格</span>
+        <div style="display: flex;float:left; text-align: center; height: 20px;
+                                padding: 5px 20px;">
+            <form id="price_form" action="/getVehiclesByPrice" method="post" style="display: none;">
+                <input id="car_price" type="hidden" value="" name="price">
+            </form>
+            <span class="filter_price" id="price1">15万以下</span>
+            <span class="filter_price" id="price2">15-30万</span>
+            <span class="filter_price" id="price3">30万以上</span>
+        </div>
+    </div>
+</div>
+<div class="vehicles" style="margin: 10px 150px; padding-left: 0px">
+    <ul class="list_vehicle" th:each="vehicle:${vehicleList}" style="list-style-type: none;">
+        <div class="vehicle" style="cursor: pointer; width: 300px" th:id="${vehicle.getVehicleId()}">
+            <form th:id="form_vehicle+${vehicle.getVehicleId()}" action="/forVehicle" method="post">
+                <li class="car_info"><input th:name="vehicleId" type="hidden" th:value="${vehicle.getVehicleId()}"></li>
+                <li class="car_info"><img th:src="${vehicle.getVehicleImage()}" width="300" height="200"></li>
+                <li class="car_info" th:text="${vehicle.getVehicleBrand()}+${vehicle.getVehicleType()}"></li>
+                <li class="car_info" th:text="${vehicle.getVehiclePrice()}+万"></li>
+            </form>
+        </div>
+    </ul>
+</div>
+<script src="../static/js/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        /*按品牌筛选车辆*/
+        $(".filter_brand").click(function () {
+            var brand = this.innerHTML;
+            console.log(brand);
+            console.log(1);
+            $("#data").val(brand);
+            $("#brand_form").submit();
+        });
+
+        /*按价格筛选车辆*/
+        $(".filter_price").click(function () {
+            var price = this.id;
+            console.log(price);
+            console.log(1);
+            $("#car_price").val(price);
+            $("#price_form").submit();/**/
+        });
+
+        /*鼠标移动到对应目标上时颜色变化*/
+        $(".filter_price").mouseover(function () {
+            $(this).css({
+                color: "red"
+            });
+        });
+        $(".filter_brand").mouseover(function () {
+            $(this).css({
+                color: "red"
+            });
+        });
+        /*鼠标离开时颜色回恢复*/
+        $(".filter_price").mouseout(function () {
+            $(this).css({
+                color: "#56585a"
+            });
+        });
+        $(".filter_brand").mouseout(function () {
+            $(this).css({
+                color: "#56585a"
+            });
+        });
+
+        /*点击车辆图片跳转具体页面*/
+        $('.vehicle').click(function () {
+            var form_id = "form_vehicle" + this.id;
+            document.getElementById(form_id).submit();
+        })
+    });
+</script>
+</body>
+</html>

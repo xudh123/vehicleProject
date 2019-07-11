@@ -1,0 +1,123 @@
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<header th:fragment="header">
+    <link rel="stylesheet" type="text/css" href="../static/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/login.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/register.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+    <div id="header" style="text-align: center; height: 80px; line-height: 40px">
+        <ul>
+            <form id="index_form" action="/index" method="post">
+                <li style="cursor: pointer" id="website-name">二手车交易网</li>
+            </form>
+
+            <li id="sell-car">
+                <button id="sell" class="header_button">卖车</button>
+            </li>
+            <form action="/getVehicles" method="post">
+                <li id="buy-car">
+                    <button id="buy" class="header_button">买车</button>
+                </li>
+            </form>
+            <li id="login_register">
+                <button id="login" class="header_button">登录</button>
+                /
+                <button id="register" class="header_button">注册</button>
+            </li>
+        </ul>
+    </div>
+
+    <!--登录弹窗内容开始-->
+    <div id="background" class="back">
+        <div id="div1" class="content">
+            <div id="close">
+                <span class="close-button">x</span>
+                <h2>登录</h2>
+            </div>
+            <hr>
+            <div id="div2">
+                <form action="/login" method="post">
+                    <span>账号密码登录</span>
+                    <br>
+                    <input type="text" id="login_name" name="username" class="input" placeholder="请输入用户名">
+                    <br>
+                    <input type="password" id="login_pass" name="password" class="input" placeholder="请输入密码">
+                    <br>
+                    <button id="login_btn">登录</button>
+                </form>
+            </div>
+            <h3 id="foot">底部内容</h3>
+        </div>
+    </div>
+
+    <!--注册弹窗内容开始-->
+    <div id="register_div" class="back">
+        <div id="div3" class="content">
+            <div id="register_close">
+                <span class="close-button">x</span>
+                <h2>注册</h2>
+            </div>
+            <hr>
+            <div id="re_div">
+                <form action="/register" method="post">
+                    <span>用户注册</span>
+                    <br>
+                    <input type="text" id="uName" name="username" class="input" placeholder="请输入用户名">
+                    <br>
+                    <input type="password" id="uPass" name="password" class="input" placeholder="请输入密码">
+                    <br>
+                    <input type="password" id="uRepass" class="input" placeholder="请确认密码">
+                    <br>
+                    <button id="register_btn">注册</button>
+                </form>
+            </div>
+            <h3 id="foot_register">底部内容</h3>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="../static/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(function () {
+                
+                $('#website-name').click(function () {
+                    $("#index_form").submit();
+                })
+                
+                /*登录时对输入数据进行判断*/
+                $('#login_btn').click(function () {
+                    if ($('#login_name').val() == "" || $('#login_pass').val() == "") {
+                        alert("用户名和密码不能为空");
+                        return false;
+                    }
+                });
+
+                /*注册时对输入数据进行判断*/
+                $('#register_btn').click(function () {
+                    if ($('#uName').val() == "" || $('#uPass').val() == "" || $('#uRepass').val() == "") {
+                        alert("用户名和密码不能为空");
+                        return false;
+                    } else if ($('#uPass').val() !== $('#uRepass').val()) {
+                        alert("两次输入的密码不一致");
+                        return false;
+                    }
+                });
+
+                /*注册 登录界面的显示与退出*/
+                $('#login').click(function () {
+                    $('#background').show();
+                });
+                $('.close-button').click(function () {
+                    $('.back').hide();
+                    $('.register_div').hide();
+                });
+                $('#register').click(function () {
+                    $('#register_div').show();
+                });
+
+
+            });
+
+        })
+    </script>
+</header>
+</html>

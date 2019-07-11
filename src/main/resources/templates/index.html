@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <style>
+        .list_car {
+            float: left;
+            margin: 0px 15px;
+        }
+
+        .car_info {
+            float: none;
+        }
+
+        .vehicle {
+            width: 300px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="common/header :: header"></div>
+<div style="margin-left: 100px">
+    <ul class="list_car" th:each="vehicle:${vehicleList}">
+        <div class="vehicle" th:id="${vehicle.getVehicleId()}">
+            <form th:id="form_vehicle+${vehicle.getVehicleId()}" action="/forVehicle" method="post">
+                <li class="car_info"><input th:name="vehicleId" th:value="${vehicle.getVehicleId()}" type="hidden"></li>
+                <li class="car_info"><img th:src="${vehicle.getVehicleImage()}" width="300" height="200"></li>
+                <li class="car_info" th:text="${vehicle.getVehicleBrand()} + ${vehicle.getVehicleType()}"></li>
+                <li class="car_info" th:text="${vehicle.getVehiclePrice()}+万"></li>
+            </form>
+        </div>
+    </ul>
+</div>
+<script src="../static/js/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".vehicle").click(function () {
+            var vehicle_id = "form_vehicle" + this.id;
+            document.getElementById(vehicle_id).submit();
+        });
+    });
+</script>
+</body>
+</html>

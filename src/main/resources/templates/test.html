@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="" method="post">
+    <input type="text" value="" id="brand">
+</form>
+<span class="brand">宝马</span>
+<script src="../static/js/jquery-3.4.1.min.js"></script>
+<script>
+    $(function () {
+        $(".brand").click(function () {
+            var b = this;
+            console.log(b);
+            console.log(b.innerHTML);
+            console.log(1);
+        })
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>车辆销售页面</title>
+    <style>
+        img {
+            margin-top: 30px;
+            margin-left: 100px;
+            margin-right: 20px;
+        }
+
+        .vehicle_info {
+            overflow: hidden;
+            display: flex;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="common/header :: header"></div>
+<div class="vehicle_info">
+    <img th:src="${vehicle_see.getVehicleImage()}" width="600" height="400">
+    <div style="float: left">
+        <p style="margin-top: 30px; font-size: 26px; margin-bottom: 10px"
+           th:text="${vehicle_see.getVehicleBrand()+vehicle_see.getVehicleType()}"></p>
+        <p style="font-size: 24px; color: red; margin-bottom: 20px"
+           th:text="￥+${vehicle_see.getVehiclePrice()}+万"></p>
+        <div style="margin-top: 70px; display: flex">
+            <div style="margin-right: 50px">
+                <p style="color: #cccccc">车辆已使用时间</p>
+                <span th:text="${vehicle_see.getVehicleUsedTime()}"></span>
+            </div>
+            <div>
+                <p style="color: #cccccc">车辆已驶里程</p>
+                <span th:text="${vehicle_see.getVehicleMileage()}"></span>
+            </div>
+        </div>
+        <div style="margin-top: 20px">
+            <span style="color: #cccccc;">车辆检测信息介绍</span>
+            <p th:text="${vehicle_see.getVehicleTestInfo()}"></p>
+        </div>
+    </div>
+</div>
+
+<script src="../static/js/jquery-3.4.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+    });
+</script>
+</body>
+</html>
