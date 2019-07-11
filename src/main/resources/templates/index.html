@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/search_part.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/brand.css">
     <style>
         .list_car {
+            padding-left: 0px;
             float: left;
-            margin: 0px 15px;
+            margin-right: 140px;
         }
 
         .car_info {
@@ -21,24 +24,109 @@
 </head>
 <body>
 <div th:replace="common/header :: header"></div>
-<div style="margin-left: 100px">
+<div class="search_div">
+    <form action="/search_Vehicle" method="post" id="form_search">
+        <input type="text" class="search" name="info_vehicle" placeholder="输入感兴趣的品牌和车型进行搜索">
+        <input type="submit" name="search_submit" id="search_btn" value="立即搜索">
+    </form>
+    <form style="padding: 0" action="/sell_Vehicle" method="post">
+        <input type="submit" name="sell_submit" id="sell_btn" value="我要卖车">
+    </form>
+</div>
+<div id="brand_div">
+    <ul style="float: left;width: 100%">
+        <li style="padding-right: 100px;text-align: center;float: left;">
+            <span>品牌</span>
+            <div style="width: 500px; padding-left: 10px">
+                <form id="form_brand" style="display: none;" method="post" action="getVehiclesByBrand">
+                    <input type="hidden" id="name_brand" name="vehicleBrand" value="">
+                </form>
+                <ul class="ul_brand" th:each="brand:${brandList}" style="float: left; padding-left: 40px">
+                    <div class="div_brand" th:id="${brand.getBrandName()}">
+                        <li class="brand_info"><img th:src="${brand.getBrandImage()}" width="30" height="30"></li>
+                        <li class="brand_info" th:text="${brand.getBrandName()}"></li>
+                    </div>
+                </ul>
+            </div>
+        </li>
+        <li style="text-align: center">
+            <span>价格</span>
+            <br>
+            <div style="float: left; margin: 20px 20px; padding: 15px; font-size: 14px;">
+                <form id="form_price" action="getVehiclesByPrice" method="post" style="display: none;">
+                    <input type="hidden" name="price" value="" id="price_hidden">
+                </form>
+                <span class="price" id="price1">15万以下</span>
+                <span class="price" id="price2">15-30万</span>
+                <span class="price" id="price3">30万以上</span>
+            </div>
+        </li>
+    </ul>
+</div>
+<div style="padding: 10px 100px; text-align: center">
+    <div style="background: coral;height: 50px; line-height: 50px;text-align: center">
+        <span style="color: white">热门车辆</span>
+    </div>
+</div>
+<div style="margin-left: 100px; padding: 0">
+    <form style="display: none;" id="vehicle_form" action="/forVehicle" method="post">
+        <input id="vehicle_id" name="vehicleId" value="" type="hidden">
+    </form>
     <ul class="list_car" th:each="vehicle:${vehicleList}">
         <div class="vehicle" th:id="${vehicle.getVehicleId()}">
-            <form th:id="form_vehicle+${vehicle.getVehicleId()}" action="/forVehicle" method="post">
-                <li class="car_info"><input th:name="vehicleId" th:value="${vehicle.getVehicleId()}" type="hidden"></li>
-                <li class="car_info"><img th:src="${vehicle.getVehicleImage()}" width="300" height="200"></li>
-                <li class="car_info" th:text="${vehicle.getVehicleBrand()} + ${vehicle.getVehicleType()}"></li>
-                <li class="car_info" th:text="${vehicle.getVehiclePrice()}+万"></li>
-            </form>
+            <li class="car_info"><img th:src="${vehicle.getVehicleImage()}" width="300" height="200"></li>
+            <li class="car_info" th:text="${vehicle.getVehicleBrand()} + ${vehicle.getVehicleType()}"></li>
+            <li class="car_info" th:text="${vehicle.getVehiclePrice()}+万"></li>
         </div>
     </ul>
 </div>
 <script src="../static/js/jquery-3.4.1.min.js"></script>
 <script>
     $(document).ready(function () {
+        /*价格部分点击事件 提交表单*/
+        $(".price").click(function () {
+            var price_id = this.id;
+            $("#price_hidden").val(price_id);
+            $("#form_price").submit();
+        });
+
+        /*鼠标从对象移走后颜色恢复*/
+        $(".price").mouseleave(function () {
+           $(this).css({
+               color: "#56585a"
+           })
+        });
+        $(".brand_info").mouseleave(function () {
+            $(this).css({
+                color: "#56585a"
+            })
+        });
+
+        /*鼠标移动到对象上变颜色*/
+        $(".price").mouseover(function () {
+            $(this).css({
+                color: "red"
+            })
+        });
+        $(".brand_info").mouseover(function () {
+            $(this).css({
+                color: "red"
+            })
+        });
+
+        
+        /*对品牌对象的操作*/
+        $(".div_brand").click(function () {
+            var brand_name = this.id;
+            $("#name_brand").val(brand_name);
+            $("#form_brand").submit();
+        });
+
+        /*点击车辆图片跳转到具体介绍*/
         $(".vehicle").click(function () {
-            var vehicle_id = "form_vehicle" + this.id;
-            document.getElementById(vehicle_id).submit();
+            var vehicle_id = this.id;
+            $("#vehicle_id").val(vehicle_id);
+            $("#vehicle_form").submit();
         });
     });
 </script>

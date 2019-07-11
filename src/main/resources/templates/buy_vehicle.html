@@ -36,12 +36,20 @@
         .list_vehicle {
             float: left;
             padding-left: 0px;
-            margin: 0px 15px;
+            margin-right: 100px;
         }
     </style>
 </head>
 <body>
 <div th:replace="common/header :: header"></div>
+<div style="padding: 5px 150px; float:right; margin: 20px 5px">
+    <form action="/search_Vehicle" method="post">
+        <input style="width: 300px; height: 30px; border: 1px solid #ccc; padding-left: 10px;
+            color: #56585a; font-size: 14px;" name="info_vehicle" type="text" placeholder="输入感兴趣的品牌和车型进行搜索">
+        <input style="width: 60px;height: 30px; background: white;
+                        color: #56585a; border: 1px solid #ccc" type="submit">
+    </form>
+</div>
 <div class="brand">
     <div style="float: left; padding-left:15px; margin-top: 40px; margin-bottom: 5px; margin-left: 150px; display: flex;
                         height: 20px;">
@@ -51,7 +59,7 @@
         <div style="display: flex;float:left; text-align: center; height: 20px;
                                 padding: 5px 20px;">
             <form id="brand_form" action="/getVehiclesByBrand" method="post" style="display: none">
-                <input id="data" type="hidden" value="" name="brand">
+                <input id="data" type="hidden" value="" name="vehicleBrand">
             </form>
             <span class="filter_brand">宝马</span>
             <span class="filter_brand">奔驰</span>
@@ -62,7 +70,7 @@
 <div class="price">
     <div style="float: left; padding-left:15px; margin: 10px 150px; display: flex;
                         height: 20px;">
-            <span style="padding: 5px 5px; color: #56585a; background-color: #dfe1e3;
+        <span style="padding: 5px 5px; color: #56585a; background-color: #dfe1e3;
                         text-align: center; height: 20px; line-height: 20px">价格</span>
         <div style="display: flex;float:left; text-align: center; height: 20px;
                                 padding: 5px 20px;">

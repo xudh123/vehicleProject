@@ -39,10 +39,8 @@ public class VehicleController {
 
     /*按品牌进行车辆筛选*/
     @PostMapping("/getVehiclesByBrand")
-    public String getVehiclesByBrand(String brand, Model model){
-        Vehicle vehicle = new Vehicle();
-        System.out.println(brand);
-        vehicle.setVehicleBrand(brand);
+    public String getVehiclesByBrand(Vehicle vehicle, Model model){
+        System.out.println(vehicle.getVehicleBrand());
         QueryWrapper<Vehicle> vehicleQueryWrapper = new QueryWrapper<>(vehicle);
         List<Vehicle> vehicleList = vehicleService.getVehiclesByBrand(vehicleQueryWrapper);
         model.addAttribute("vehicleList", vehicleList);
