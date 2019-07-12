@@ -2,9 +2,11 @@ package com.example.bootopen.web;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.bootopen.Consts.UserConsts;
+import com.example.bootopen.pojo.Brand;
 import com.example.bootopen.pojo.User;
 import com.example.bootopen.pojo.Vehicle;
 import com.example.bootopen.redis.RedisService;
+import com.example.bootopen.service.IBrandService;
 import com.example.bootopen.service.IVehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,8 @@ public class VehicleController {
 
     @Autowired
     private IVehicleService vehicleService;
+    @Autowired
+    private IBrandService brandService;
     @Autowired
     private RedisService redisService;
 
@@ -51,7 +55,7 @@ public class VehicleController {
         QueryWrapper<Vehicle> vehicleQueryWrapper = new QueryWrapper<>();
         List<Vehicle> vehicleList = vehicleService.findAllVehicle(vehicleQueryWrapper);
         model.addAttribute("vehicleList", vehicleList);
-
+        model.addAttribute("choice", "0");        //用户选项
         User user = getUser();
         model.addAttribute("user", user);
         model.addAttribute("is_login", UserConsts.userLogined);
@@ -62,10 +66,20 @@ public class VehicleController {
     @PostMapping("/getVehiclesByBrand")
     public String getVehiclesByBrand(Vehicle vehicle, Model model){
         System.out.println(vehicle.getVehicleBrand());
+        List<Brand> brandList = brandService.getBrands();
+
+        String chioce = "";             //寻找用户点击的品牌类型，传递到前端显示特效
+        for (Brand brand : brandList){
+            if (vehicle.getVehicleBrand().equals(brand.getBrandName())){
+                chioce = "brand"+brand.getBrandId().toString();
+            }
+        }
+
         QueryWrapper<Vehicle> vehicleQueryWrapper = new QueryWrapper<>(vehicle);
-        List<Vehicle> vehicleList = vehicleService.getVehiclesByBrand(vehicleQueryWrapper);
+        List<Vehicle> vehicleList = vehicleService.getVehiclesByBrand(vehicleQueryWrapper);      //获得需要的车辆List
 
         User user = getUser();
+        model.addAttribute("choice", chioce);
         model.addAttribute("user", user);
         model.addAttribute("is_login", UserConsts.userLogined);
         model.addAttribute("vehicleList", vehicleList);
@@ -94,6 +108,7 @@ public class VehicleController {
         List<Vehicle> vehicleList = vehicleService.getVehicleByPrice(vehicleQueryWrapper);
 
         User user = getUser();
+        model.addAttribute("choice", price);             //将用户选择的价格类型传递到前端
         model.addAttribute("user", user);
         model.addAttribute("is_login", UserConsts.userLogined);
         model.addAttribute("vehicleList", vehicleList);
