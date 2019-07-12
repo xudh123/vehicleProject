@@ -30,6 +30,18 @@ public class UserController {
     @Autowired
     private IBrandService brandService;
 
+    /**
+     * @return 返回一个用户数据对象
+     * redis中不存在就返回一个空对象
+     */
+    private User getUser(){
+        if(UserConsts.userLogined == 1){       //登录标志为1，
+            return redisService.get("user", User.class);
+        }else {
+            return (new User());
+        }
+    }
+
     @PostMapping("/login")
     public String login(User user, Model model){
         /*获取用户数据*/
@@ -61,6 +73,21 @@ public class UserController {
         return "注册成功";
     }
 
+    @PostMapping("quitLogin")
+    public String quitLogin(Model model){
+        UserConsts.userLogined = 0;
+        redisService.delete("user");   //删除用户数据缓存
+
+        List<Vehicle> vehicleList = vehicleService.getHotVehicles();     //获取车辆数据
+        List<Brand> brandList = brandService.getBrands();  //获取品牌数据
+
+        User user = getUser();
+        model.addAttribute("user", user);
+        model.addAttribute("vehicleList", vehicleList);
+        model.addAttribute("brandList", brandList);
+        model.addAttribute("is_login", UserConsts.userLogined);
+        return "index";
+    }
 
 
 }

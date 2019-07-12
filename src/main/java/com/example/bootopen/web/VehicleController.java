@@ -67,6 +67,7 @@ public class VehicleController {
 
         User user = getUser();
         model.addAttribute("user", user);
+        model.addAttribute("is_login", UserConsts.userLogined);
         model.addAttribute("vehicleList", vehicleList);
         return "buy_vehicle";
     }

@@ -20,6 +20,20 @@ public class RedisService{
      * 使用stringRedisTemplate操作redis
      * */
 
+    /**
+     * @param key
+     * @return boolean
+     * 删除redis中的键值
+     * */
+    public <T> boolean delete(String key){
+        try{
+            stringRedisTemplate.delete(key);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
     public <T> boolean set(String key ,T value){
         try {
             //任意类型转换成String

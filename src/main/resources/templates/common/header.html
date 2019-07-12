@@ -18,9 +18,13 @@
                     <button id="buy" class="header_button">买车</button>
                 </li>
             </form>
+            <input id="is_login" type="hidden" th:value="${is_login}">
             <li id="user_info" style="display: block;" >
-                <input id="is_login" type="hidden" th:value="${is_login}">
                 <button id="user" class="header_button" th:text="${user.getUsername()}"></button>
+                <form action="/quitLogin" method="post" style="display: none" id="quit_login">
+                    <input type="hidden" value="" id="user_quit">
+                </form>
+                <button id="quit" class="header_button">退出</button>
             </li>
             <li id="login_register" style="display: none;">
                 <button id="login" class="header_button">登录</button>
@@ -80,23 +84,30 @@
 
     <script type="text/javascript" src="../static/js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript">
+        <!--用户登录部分js特效-->
+        $(function () {
+            if($("#is_login").val() == "0"){
+                $("#user_info").css({
+                    display: "none"
+                });
+                $("#login_register").css({
+                    display: "block"
+                });
+            }else{
+                $("#user_info").css({
+                    display: "block"
+                });
+                $("#login_register").css({
+                    display: "none"
+                });
+            }
+        });
         $(function () {
             $(function () {
-                if($("#is_login").val() == "0"){
-                    $("#user_info").css({
-                        display: "none"
-                    });
-                    $("#login_register").css({
-                        display: "block"
-                    });
-                }else{
-                    $("#user_info").css({
-                        display: "block"
-                    });
-                    $("#login_register").css({
-                        display: "none"
-                    });
-                }
+
+                $("#quit").click(function () {
+                    $("#quit_login").submit();
+                });
 
                 $('#website-name').click(function () {
                     $("#index_form").submit();
