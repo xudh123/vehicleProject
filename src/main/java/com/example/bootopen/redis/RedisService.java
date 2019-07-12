@@ -1,9 +1,12 @@
 package com.example.bootopen.redis;
 
 import com.alibaba.fastjson.JSON;
+import com.example.bootopen.pojo.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class RedisService{
@@ -11,21 +14,58 @@ public class RedisService{
     @Autowired
     StringRedisTemplate stringRedisTemplate;
 
+
+    /**
+     * 使用阿里巴巴的fastjson进行数据类型转换
+     * 使用stringRedisTemplate操作redis
+     * */
+
     public <T> boolean set(String key ,T value){
-
         try {
-
             //任意类型转换成String
             String val = beanToString(value);
-
             if(val==null||val.length()<=0){
                 return false;
             }
-
             stringRedisTemplate.opsForValue().set(key,val);
             return true;
         }catch (Exception e){
             return false;
+        }
+    }
+
+    /**
+     * 添加List对象到redis
+     * @param key
+     * @return
+     * */
+    public <T> boolean addList(String key, List<T> tList){
+        try {
+            //任意类型转换成String
+            //String val = beanToString(value);
+            /*if(val==null||val.length()<=0){
+                return false;
+            }*/
+            stringRedisTemplate.opsForValue().set(key, JSON.toJSONString(tList));
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
+    /**
+     * 获取redis对象
+     * @param key
+     * @param classz
+     * @return
+     * */
+    public <T> List<T> getList(String key, Class<T> classz){
+        try {
+            String tList = stringRedisTemplate.opsForValue().get(key);
+
+            return JSON.parseArray(tList, classz);
+        }catch (Exception e){
+            return null ;
         }
     }
 
@@ -88,10 +128,12 @@ public class RedisService{
     * 获取 key 对应的字符串
     * @param key
     * @return
-     */
+    */
 
     public String get(String key) {
         return stringRedisTemplate.opsForValue().get(key);
     }
+
+
 
 }

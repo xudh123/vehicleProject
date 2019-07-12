@@ -1,0 +1,23 @@
+#brand_div{
+    text-align: center;
+    padding-left: 200px;
+    padding-bottom: 200px;
+}
+
+.price{
+    cursor: pointer;
+    color: #56585a;
+    margin: 10px 10px auto
+}
+
+.brand_info{
+    cursor: pointer;
+    padding-left: 0px;
+    float: none;
+    text-align: center;
+    font-size: 14px;
+}
+
+.div_brand{
+    float: left;
+}

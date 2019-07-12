@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.bootopen.mapper.VehicleMapper;
 import com.example.bootopen.pojo.Brand;
 import com.example.bootopen.pojo.Vehicle;
+import com.example.bootopen.redis.RedisService;
 import com.example.bootopen.service.IVehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +16,17 @@ public class VehicleServiceImpl implements IVehicleService {
 
     @Autowired
     private VehicleMapper vehicleMapper;
+    @Autowired
+    private RedisService redisService;
 
     @Override
     public List<Vehicle> getHotVehicles() {
-        return vehicleMapper.getHotVehicles();
+        List<Vehicle> vehicleList = redisService.getList("vehicleHotList", Vehicle.class);
+        if (vehicleList == null){                               //检查redis是否有需要的车辆数据
+            vehicleList = vehicleMapper.getHotVehicles();     //redis中没有该数据则从数据库获取
+            redisService.addList("vehicleHotList", vehicleList);       //将热门车辆的数据存放到redis中
+        }
+        return vehicleList;
     }
 
     @Override

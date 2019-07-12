@@ -1,0 +1,47 @@
+.search_div{
+    width: 800px;
+    height: 50px;
+    margin: 100px auto;
+}
+
+#form_search{
+    float: left;
+    width: 550px;
+    height: 42px;
+    position: static;
+}
+
+.search{
+    padding-left: 10px;
+    width: 330px;
+    height: 44px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    outline: none;
+}
+.search:focus{
+    border: 1px solid #317ef3;
+}
+
+#search_btn{
+    cursor: pointer;
+    width: 107px;
+    height: 44px;
+    background: #317ef3;
+    border: 1px solid #317ef3;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+}
+
+#sell_btn{
+    cursor: pointer;
+    width: 107px;
+    height: 44px;
+    background: coral;
+    border: 1px solid coral;
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
