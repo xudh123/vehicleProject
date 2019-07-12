@@ -83,6 +83,14 @@
 <script src="../static/js/jquery-3.4.1.min.js"></script>
 <script>
     $(document).ready(function () {
+        /*对搜索框输入数据验证*/
+        $("#search_btn").click(function () {
+           if($(".search").val() == ""){
+               alert("请输入品牌或车型");
+               return false;
+           }
+        });
+        
         /*价格部分点击事件 提交表单*/
         $(".price").click(function () {
             var price_id = this.id;

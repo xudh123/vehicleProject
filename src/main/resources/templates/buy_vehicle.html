@@ -46,7 +46,7 @@
     <form action="/search_Vehicle" method="post">
         <input style="width: 300px; height: 30px; border: 1px solid #ccc; padding-left: 10px;
             color: #56585a; font-size: 14px;" name="info_vehicle" type="text" placeholder="输入感兴趣的品牌和车型进行搜索">
-        <input style="width: 60px;height: 30px; background: white;
+        <input id="search_btn" style="width: 60px;height: 30px; background: white;
                         color: #56585a; border: 1px solid #ccc" type="submit">
     </form>
 </div>
@@ -98,6 +98,15 @@
 <script src="../static/js/jquery-3.4.1.min.js"></script>
 <script>
     $(document).ready(function () {
+
+        /*验证输入信息是否为空*/
+        $("#search_btn").click(function () {
+           if($(".search").val() == ""){
+               alert("请输入品牌或车型");
+               return false;
+           }
+        });
+
         /*按品牌筛选车辆*/
         $(".filter_brand").click(function () {
             var brand = this.innerHTML;
