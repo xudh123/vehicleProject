@@ -80,6 +80,8 @@ public class IndexController {
 
         List<Vehicle> vehicleList = new ArrayList<>();
         vehicleList = vehicleService.getVehiclesByBrand(vehicleQueryWrapper);   //按品牌查询
+        User user = getUser();
+        model.addAttribute("user", user);
 
         if (vehicleList.isEmpty()){                  //按品牌查询为空，则根据车系进行模糊查询
             vehicleQueryWrapper = new QueryWrapper<Vehicle>().like("vehicle_type", info_vehicle);
@@ -89,8 +91,7 @@ public class IndexController {
             return "buy_vehicle";
         }
 
-        User user = getUser();
-        model.addAttribute("user", user);
+
         model.addAttribute("is_login", UserConsts.userLogined);
         model.addAttribute("vehicleList", vehicleList);
 
