@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>测试</title>
+    <title>用户管理界面</title>
     <style>
         html, body{
             margin: 0px auto;
@@ -46,11 +46,10 @@
         <li class="choice"><span>我正在出售的车辆</span></li>
         <li class="choice"><span>我获取的报价</span></li>
         <li class="choice"><span>我已购买的车</span></li>
-        <li class="choice"><span>个人信息</span></li>
+        <li class="choice" id="li_user_info"><span>个人信息</span></li>
     </ul>
 </div>
-<div class="maxDiv" id="maxDiv_2" style="width: 75%">
-    用户信息
+<div class="maxDiv" id="maxDiv_2" style="width: 75%" th:replace="User_info/user_info :: user_info">
 </div>
 <script src="../static/js/jquery-3.4.1.min.js"></script>
 <script>
@@ -65,7 +64,9 @@
                 background: "#555a58"
             })
         });
+        $("#li_user_info").click(function () {
 
+        });
     });
 </script>
 </body>

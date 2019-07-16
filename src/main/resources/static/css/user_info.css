@@ -1,0 +1,15 @@
+input{
+    margin: 20px 20px;
+    border: 1px solid gray;
+    height: 30px;
+    padding-left: 5px;
+    color: #56585a;
+    border-radius: 5px;
+}
+
+#submit{
+    text-align: center;
+    height: 40px;
+    width: 80px;
+    border-radius: 5px;
+}

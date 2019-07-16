@@ -9,6 +9,7 @@ import com.example.bootopen.redis.RedisService;
 import com.example.bootopen.service.IBrandService;
 import com.example.bootopen.service.IUserService;
 import com.example.bootopen.service.IVehicleService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -89,5 +90,37 @@ public class UserController {
         return "index";
     }
 
+    /**
+     * @return test
+     * 进入用户管理界面
+     */
+    @PostMapping("toUserInfo")
+    public String toUserInfo(Model model){
+        User user = getUser();
+        model.addAttribute("user", user);
 
+        return "user_manage";
+    }
+
+    /**
+     * @param user 用户
+     * @return test
+     * 更新用户信息
+     */
+    @PostMapping("updateUser")
+    public String updateUser(User user, Model model){
+        userService.updateById(user);
+
+        User user1 = getUser();
+        model.addAttribute("user", user1);
+        return "user_manage";
+    }
+
+/*    @RequestMapping("/User_info/user_info.html")
+    public String getUserInfo(Model model){
+        User user = getUser();
+        model.addAttribute("user", user);
+
+        return "/User_info/user_info";
+    }*/
 }

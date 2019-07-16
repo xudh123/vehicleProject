@@ -20,9 +20,10 @@
             </form>
             <input id="is_login" type="hidden" th:value="${is_login}">
             <li id="user_info" style="display: block;" >
+                <form action="/toUserInfo" method="post" style="display: none;" id="to_userInfo">
+                </form>
                 <button id="user" class="header_button" th:text="${user.getUsername()}"></button>
                 <form action="/quitLogin" method="post" style="display: none" id="quit_login">
-                    <input type="hidden" value="" id="user_quit">
                 </form>
                 <button id="quit" class="header_button">退出</button>
             </li>
@@ -104,11 +105,15 @@
         });
         $(function () {
             $(function () {
-
+                /*进入用户管理界面*/
+                $("#user").click(function () {
+                    $("#to_userInfo").submit();
+                });
+                /*退出登录表单提交*/
                 $("#quit").click(function () {
                     $("#quit_login").submit();
                 });
-
+                /*返回首页*/
                 $('#website-name').click(function () {
                     $("#index_form").submit();
                 });
