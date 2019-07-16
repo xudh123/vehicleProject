@@ -49,7 +49,23 @@ public class VehicleServiceImpl implements IVehicleService {
     }
 
     @Override
-    public List<Vehicle> getVehicleByPrice(QueryWrapper<Vehicle> vehicleQueryWrapper) {
+    public List<Vehicle> getVehicleByPrice(String price) {
+        QueryWrapper<Vehicle> vehicleQueryWrapper = new QueryWrapper<>();
+        System.out.println(price);
+        switch (price){
+            case "price1":
+                vehicleQueryWrapper = new QueryWrapper<Vehicle>().lt("vehicle_price", 15);
+                System.out.println(price);
+                break;
+            case "price2":
+                vehicleQueryWrapper = new QueryWrapper<Vehicle>().between("vehicle_price", 15, 30);
+                break;
+            case  "price3":
+                vehicleQueryWrapper = new QueryWrapper<Vehicle>().gt("vehicle_price", 30);
+                break;
+            default:
+                break;
+        }
         List<Vehicle> vehicleList = vehicleMapper.selectList(vehicleQueryWrapper);
         return vehicleList;
     }

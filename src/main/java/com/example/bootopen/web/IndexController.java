@@ -47,6 +47,20 @@ public class IndexController {
     }
 
     /**
+     * @param
+     * @return
+     * 前端测试
+     */
+    @RequestMapping("test")
+    public String test(Model model){
+        User user = getUser();
+
+        model.addAttribute("user", user);          //用户数据
+        model.addAttribute("is_login", UserConsts.userLogined);    //是否有用户登录
+        return "test";
+    }
+
+    /**
      * @param model 前后端数据传输
      * 获取前端需要的数据
      */

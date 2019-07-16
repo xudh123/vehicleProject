@@ -54,6 +54,7 @@ public class VehicleController {
     public String getVehicle(Model model){
         QueryWrapper<Vehicle> vehicleQueryWrapper = new QueryWrapper<>();
         List<Vehicle> vehicleList = vehicleService.findAllVehicle(vehicleQueryWrapper);
+
         model.addAttribute("vehicleList", vehicleList);
         model.addAttribute("choice", "0");        //用户选项
         User user = getUser();
@@ -89,23 +90,7 @@ public class VehicleController {
     /*按价格筛选车辆*/
     @PostMapping("/getVehiclesByPrice")
     public String getVehiclesByPrice(String price, Model model){
-        QueryWrapper<Vehicle> vehicleQueryWrapper = new QueryWrapper<>();
-        System.out.println(price);
-        switch (price){
-            case "price1":
-                vehicleQueryWrapper = new QueryWrapper<Vehicle>().lt("vehicle_price", 15);
-                System.out.println(price);
-                break;
-            case "price2":
-                vehicleQueryWrapper = new QueryWrapper<Vehicle>().between("vehicle_price", 15, 30);
-                break;
-            case  "price3":
-                vehicleQueryWrapper = new QueryWrapper<Vehicle>().gt("vehicle_price", 30);
-                break;
-            default:
-                break;
-        }
-        List<Vehicle> vehicleList = vehicleService.getVehicleByPrice(vehicleQueryWrapper);
+        List<Vehicle> vehicleList = vehicleService.getVehicleByPrice(price);
 
         User user = getUser();
         model.addAttribute("choice", price);             //将用户选择的价格类型传递到前端

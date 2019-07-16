@@ -1,34 +1,72 @@
-<html>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <script>
-        var arrayNation = new Array('汉族','蒙古族','彝族','侗族','哈萨克族');
-        var arrayDegree = new Array('小学','初中','高中','中专','大专','本科','硕士','博士');
-
-        function createSelect(name, str){
-            var _select = document.createElement("select");
-            var firstOption = document.createElement("option");
-            firstOption.value = "------select------";
-            firstOption.text = "------请选择------";
-            _select.appendChild(firstOption);
-            for ( i = 0; i < str.length; i++){
-                var _option = document.createElement("option");
-                _option.value = str[i];
-                _option.text = str[i];
-                if (name == str[i]){
-                    _option.selected = "true";
-                }
-                _select.appendChild(_option);
-            }
-            return _select;
+    <meta charset="UTF-8">
+    <title>测试</title>
+    <style>
+        html, body{
+            margin: 0px auto;
+            padding: 0px 0px auto;
+            height: 100%;
+            width: 100%;
+            float: left;
         }
-    </script>
+        ul{
+            width: 100%;
+            margin: 0px auto;
+            list-style-type: none;
+            padding: 0px;
+        } 
+        .maxDiv{
+            margin: 0 auto;
+            height:100%;
+            float: left;
+        }
+        #maxDiv_1{
+            color: white;
+            background-color: #555a58;
+        }
+        .choice{
+            width: 100%;
+            cursor: pointer;
+            padding: 30px 0px;
+            margin: 0px auto;
+        }
+        span{
+            padding: 0px 20px;
+            margin: 0px auto;
+        }
+    </style>
 </head>
 <body>
-<div id="nation">民族：</div>
-<div id="degree">学历：</div>
+<div th:replace="common/header :: header"></div>
+<div class="maxDiv" id="maxDiv_1" style="width: 15%">
+    <ul>
+        <li class="choice"><span>已提供报价的车辆</span></li>
+        <li class="choice"><span>我正在出售的车辆</span></li>
+        <li class="choice"><span>我获取的报价</span></li>
+        <li class="choice"><span>我已购买的车</span></li>
+        <li class="choice"><span>个人信息</span></li>
+    </ul>
+</div>
+<div class="maxDiv" id="maxDiv_2" style="width: 75%">
+    用户信息
+</div>
+<script src="../static/js/jquery-3.4.1.min.js"></script>
 <script>
-    document.getElementById("nation").appendChild(createSelect('侗族', arrayNation));
-    document.getElementById("degree").appendChild(createSelect('初中', arrayDegree));
+    $(function () {
+       $(".choice").mouseover(function () {
+          $(this).css({
+              background: "#4a4b5a"
+          })
+       });
+        $(".choice").mouseleave(function () {
+            $(this).css({
+                background: "#555a58"
+            })
+        });
+
+    });
 </script>
 </body>
 </html>
