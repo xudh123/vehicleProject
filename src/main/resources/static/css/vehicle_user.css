@@ -1,0 +1,13 @@
+#table1{
+    color: #56585a;
+}
+#table2{
+    color: #56585a;
+}
+th, td{
+    height: 40px;
+    width: 200px;
+}
+td{
+    text-align: center;
+}

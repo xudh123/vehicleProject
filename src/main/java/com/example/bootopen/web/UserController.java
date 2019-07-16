@@ -99,6 +99,8 @@ public class UserController {
         User user = getUser();
         model.addAttribute("user", user);
 
+        List<Vehicle> MyVehicleList = vehicleService.getVehiclesByOwner(user.getUserId());
+        model.addAttribute("MyVehicleList", MyVehicleList);
         return "user_manage";
     }
 
@@ -116,11 +118,28 @@ public class UserController {
         return "user_manage";
     }
 
-/*    @RequestMapping("/User_info/user_info.html")
+    /**
+     * @return /User_info/user_info
+     * 加载用户信息管理界面
+     */
+    @RequestMapping("/User_info/user_info.html")
     public String getUserInfo(Model model){
         User user = getUser();
         model.addAttribute("user", user);
 
         return "/User_info/user_info";
-    }*/
+    }
+
+    /**
+     * @return /User_info/vehicle_user
+     * 加载用户拥有的车辆
+     */
+    @RequestMapping("/User_info/vehicle_user.html")
+    public String getUserVehicles(Model model){
+        User user = getUser();
+        List<Vehicle> MyVehicleList = vehicleService.getVehiclesByOwner(user.getUserId());
+        model.addAttribute("MyVehicleList", MyVehicleList);
+        model.addAttribute("user", user);
+        return "/User_info/vehicle_user";
+    }
 }

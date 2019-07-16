@@ -75,4 +75,14 @@ public class VehicleServiceImpl implements IVehicleService {
         List<Vehicle> vehicleList = vehicleMapper.selectList(vehicleQueryWrapper);
         return vehicleList;
     }
+
+    @Override
+    public List<Vehicle> getVehiclesByOwner(int ownerId) {
+        Vehicle vehicle = new Vehicle();
+        vehicle.setVehicleOwner(ownerId);
+        QueryWrapper<Vehicle> vehicleQueryWrapper = new QueryWrapper<>(vehicle);
+
+        List<Vehicle> vehicleList = vehicleMapper.selectList(vehicleQueryWrapper);
+        return vehicleList;
+    }
 }
