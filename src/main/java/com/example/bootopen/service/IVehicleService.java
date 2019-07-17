@@ -17,4 +17,5 @@ public interface IVehicleService {
     List<Vehicle> getVehiclesByTypeFuzzyQuery(QueryWrapper<Vehicle> vehicleQueryWrapper);
     List<Vehicle> getVehiclesByOwner(int ownerId);
     List<Vehicle> getVehiclesBySaleWay(int sale);
+    void updateVehicleById(Vehicle vehicle);
 }

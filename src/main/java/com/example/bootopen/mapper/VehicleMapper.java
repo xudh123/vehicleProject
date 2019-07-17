@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface VehicleMapper extends BaseMapper<Vehicle> {
 
-    @Select("select * from vehicle order by vehicle_id limit 4")
+    @Select("select * from vehicle where vehicle_onsale!='0' order by vehicle_id limit 4")
     List<Vehicle> getHotVehicles();
     @Select("select * from vehicle where vehicle_onsale=#{sale_way} order by vehicle_id limit 3")
     List<Vehicle> getVehiclesBySaleWay(@Param("sale_way") int saleWay);

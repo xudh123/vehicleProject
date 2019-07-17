@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>发生错误</title>
+    <title>404</title>
     <style>
         html, body{
             margin: 0px auto;
@@ -18,13 +18,59 @@
             font-size: 20px;
             color: slateblue;
         }
+
+        .list_car {
+            padding-left: 0px;
+            float: left;
+            margin-right: 140px;
+        }
+
+        .car_info {
+            float: none;
+        }
+
+        .vehicle {
+            width: 300px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 <div th:replace="common/header :: header"></div>
-<div class="main_div" id="background_img" style="width: 500px; height: 300px;"></div>
-<div class="main_div" style="text-align: center; padding-top: 150px; padding-left: 250px">
-    <span>您还未登录....</span>
+<div style="width: 100%; height: 500px; padding: 10px 100px;">
+    <div class="main_div" id="background_img" style="width: 500px; height: 300px;"></div>
+    <div class="main_div" style="text-align: center; padding-top: 150px; padding-left: 250px">
+        <span>您还未登录....</span>
+    </div>
 </div>
+
+<form style="display: none;" id="vehicle_form" action="/forVehicle" method="post">
+    <input id="vehicle_id" name="vehicleId" value="" type="hidden">
+</form>
+<div style="padding: 10px 100px; text-align: center">
+    <div style="background: coral;height: 50px; line-height: 50px;text-align: center">
+        <span style="color: white">热门车辆</span>
+    </div>
+</div>
+<div style="margin-left: 100px; padding: 0; height: 650px;">
+    <ul class="list_car" th:each="vehicle:${vehicleList}">
+        <div class="vehicle" th:id="${vehicle.getVehicleId()}">
+            <li class="car_info"><img th:src="${vehicle.getVehicleImage()}" width="300" height="200"></li>
+            <li class="car_info" th:text="${vehicle.getVehicleBrand()} + ${vehicle.getVehicleType()}"></li>
+            <li class="car_info" th:text="${vehicle.getVehiclePrice()}+万"></li>
+        </div>
+    </ul>
+</div>
+<script src="../static/js/jquery-3.4.1.min.js"></script>
+<script>
+    $(function () {
+        /*点击车辆图片跳转到具体介绍*/
+        $(".vehicle").click(function () {
+            var vehicle_id = this.id;
+            $("#vehicle_id").val(vehicle_id);
+            $("#vehicle_form").submit();
+        });
+    });
+</script>
 </body>
 </html>

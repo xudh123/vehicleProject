@@ -3,10 +3,13 @@ package com.example.bootopen.web;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.bootopen.Consts.UserConsts;
 import com.example.bootopen.pojo.Brand;
+import com.example.bootopen.pojo.Order;
 import com.example.bootopen.pojo.User;
 import com.example.bootopen.pojo.Vehicle;
 import com.example.bootopen.redis.RedisService;
 import com.example.bootopen.service.IBrandService;
+import com.example.bootopen.service.IOrderService;
+import com.example.bootopen.service.IUserService;
 import com.example.bootopen.service.IVehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,9 +22,13 @@ import java.util.List;
 public class VehicleController {
 
     @Autowired
+    private IUserService userService;
+    @Autowired
     private IVehicleService vehicleService;
     @Autowired
     private IBrandService brandService;
+    @Autowired
+    private IOrderService orderService;
     @Autowired
     private RedisService redisService;
 
@@ -52,7 +59,7 @@ public class VehicleController {
     /*点击买车跳转到车辆销售页面*/
     @PostMapping("/getVehicles")
     public String getVehicle(Model model){
-        QueryWrapper<Vehicle> vehicleQueryWrapper = new QueryWrapper<>();
+        QueryWrapper<Vehicle> vehicleQueryWrapper = new QueryWrapper<Vehicle>().notIn("vehicle_onsale", 0);
         List<Vehicle> vehicleList = vehicleService.findAllVehicle(vehicleQueryWrapper);
 
         model.addAttribute("vehicleList", vehicleList);
@@ -101,13 +108,51 @@ public class VehicleController {
     }
 
     /**
+     * @param vehicle 具有车辆编号
+     * @return aprice_buy 购买订单页面
+     * 用户一口价买车*/
+    @PostMapping("APrice_Buy")
+    public String APrice_Buy(Vehicle vehicle, Model model){
+        User user = getUser();
+        Vehicle vehicle1 = vehicleService.getVehicleById(vehicle);
+        List<Vehicle> vehicleList = vehicleService.getHotVehicles();
+
+        model.addAttribute("vehicleList", vehicleList);
+        model.addAttribute("vehicle", vehicle1);
+        model.addAttribute("user", user);
+        model.addAttribute("is_login", UserConsts.userLogined);
+        if (user.getUserId() == null){
+            return "404";
+        }
+        return "aprice_buy";
+    }
+
+    /**
+     * @param vehicleId 车辆编号
+     * @return aprice_buy 竞拍订单页面
+     * 用户一口价买车*/
+    @PostMapping("Acution_Buy")
+    public String Acution_Buy(String vehicleId, Model model){
+        User user = getUser();
+
+        model.addAttribute("user", user);
+        model.addAttribute("is_login", UserConsts.userLogined);
+        return "aprice_buy";
+    }
+
+    /**
      * @return sell_vehicle
      * 用户卖车
      */
     @PostMapping("sell_Vehicle")
     public String sellVehicle(Model model){
+
+        List<Vehicle> vehicleList = vehicleService.getHotVehicles();
+
         User user = getUser();
+        model.addAttribute("vehicleList", vehicleList);
         model.addAttribute("user", user);
+        model.addAttribute("is_login", UserConsts.userLogined);
         if (user.getUserId() == null){
             return "404";
         }

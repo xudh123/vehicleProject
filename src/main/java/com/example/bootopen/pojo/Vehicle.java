@@ -10,8 +10,7 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
-@Setter
-@Getter
+@Data
 @TableName("vehicle")
 public class Vehicle implements Serializable{
     public Vehicle(){}

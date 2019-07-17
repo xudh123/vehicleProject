@@ -106,4 +106,9 @@ public class VehicleServiceImpl implements IVehicleService {
         }
         return vehicleList;
     }
+
+    @Override
+    public void updateVehicleById(Vehicle vehicle) {
+        vehicleMapper.updateById(vehicle);                 //更新车辆状态
+    }
 }

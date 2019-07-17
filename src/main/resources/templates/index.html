@@ -14,6 +14,10 @@
             float: left;
         }
 
+        header{
+            margin-top: 0px;
+        }
+
         .list_car {
             padding-left: 0px;
             float: left;
@@ -31,7 +35,7 @@
     </style>
 </head>
 <body>
-<div style="margin-top: 0px" th:replace="common/header :: header"></div>
+<div style="margin: 0px auto;" th:replace="common/header :: header"></div>
 <div class="search_div">
     <form action="/search_Vehicle" method="post" id="form_search">
         <input type="text" class="search" name="info_vehicle" placeholder="输入感兴趣的品牌和车型进行搜索">

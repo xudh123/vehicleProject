@@ -58,7 +58,8 @@
             <p th:text="${vehicle_see.getVehicleTestInfo()}"></p>
         </div>
         <div style="text-align: center">
-            <form action="" method="post">
+            <form id="form_buy_vehicle" action="" method="post">
+                <input type="hidden" name="vehicleId" th:value="${vehicle_see.getVehicleId()}">
                 <input id="submit_aprice" class="submit_btn" type="submit" value="一口价购买" style="display: none;">
                 <input id="submit_acution" class="submit_btn" type="submit" value="参与竞拍" style="display: none;">
             </form>
@@ -77,6 +78,18 @@
                 display: "block"
             })
         }
+
+        if ([[${vehicle_see.getVehicleOnsale()}]] == [[${user.getUserId()}]]) {
+            $(".submit_btn").css({
+                display: "none"
+            })
+        }
+
+        $("#submit_aprice").click(function () {
+            var new_action = "/APrice_Buy";
+            $("#form_buy_vehicle").attr('action', new_action);
+            $("#form_buy_vehicle").submit();
+        });
     });
 </script>
 </body>

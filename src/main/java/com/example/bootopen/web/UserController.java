@@ -59,6 +59,11 @@ public class UserController {
         if(!userService.selectUser(userQueryWrapper).isEmpty()){
             user1 = userService.selectUser(userQueryWrapper).get(0);
             redisService.set("user", user1);      //将获取到的user放入redis中
+            List<Vehicle> AuctionVehicles = vehicleService.getVehiclesBySaleWay(2);             //获取拍卖车辆数据
+            List<Vehicle> APriceVehicles = vehicleService.getVehiclesBySaleWay(1);       //获取一口价销售车辆数据
+
+            model.addAttribute("AuctionVehicles", AuctionVehicles);
+            model.addAttribute("APriceVehicles", APriceVehicles);
             model.addAttribute("user", user1);    //将用户数据传输到前端
             UserConsts.userLogined = 1;          //设置用户登录标志为1，表示已登录
             model.addAttribute("is_login", UserConsts.userLogined);
@@ -79,6 +84,8 @@ public class UserController {
         UserConsts.userLogined = 0;
         redisService.delete("user");   //删除用户数据缓存
 
+        List<Vehicle> AuctionVehicles = vehicleService.getVehiclesBySaleWay(2);             //获取拍卖车辆数据
+        List<Vehicle> APriceVehicles = vehicleService.getVehiclesBySaleWay(1);       //获取一口价销售车辆数据
         List<Vehicle> vehicleList = vehicleService.getHotVehicles();     //获取车辆数据
         List<Brand> brandList = brandService.getBrands();  //获取品牌数据
 
@@ -86,6 +93,8 @@ public class UserController {
         model.addAttribute("user", user);
         model.addAttribute("vehicleList", vehicleList);
         model.addAttribute("brandList", brandList);
+        model.addAttribute("AuctionVehicles", AuctionVehicles);
+        model.addAttribute("APriceVehicles", APriceVehicles);
         model.addAttribute("is_login", UserConsts.userLogined);
         return "index";
     }
