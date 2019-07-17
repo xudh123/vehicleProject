@@ -9,11 +9,15 @@ import com.example.bootopen.redis.RedisService;
 import com.example.bootopen.service.IOrderService;
 import com.example.bootopen.service.IUserService;
 import com.example.bootopen.service.IVehicleService;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.omg.IOP.IOR;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 public class OrderController {
@@ -78,5 +82,37 @@ public class OrderController {
         model.addAttribute("is_login", UserConsts.userLogined);
 
         return "vehicle";
+    }
+
+    /**
+     * @param model
+     * @return
+     * 加载用户订单界面
+     */
+    @RequestMapping("/User_info/vehicle_buyed.html")
+    public String getUserOrders(Model model){
+        User user = getUser();
+
+        List<Order> orderList = orderService.getOrderListByBuyer(user.getUsername());
+
+        model.addAttribute("orderList", orderList);
+        model.addAttribute("user", user);
+        return "/User_info/vehicle_buyed";
+    }
+
+
+    /**
+     * @param model
+     * @return
+     * 加载用户订单界面
+     */
+    @RequestMapping("/User_info/vehicle_selled.html")
+    public String getSellerOrders(Model model){
+        User user = getUser();
+        List<Order> orderList = orderService.getOrderListBySeller(user.getUsername());
+
+        model.addAttribute("orderList", orderList);
+        model.addAttribute("user", user);
+        return "/User_info/vehicle_selled";
     }
 }

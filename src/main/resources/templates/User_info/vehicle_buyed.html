@@ -1,0 +1,36 @@
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<header th:fragment="vehicle_buyed">
+    <link rel="stylesheet" type="text/css" href="../static/css/vehicle_buyed.css">
+    <div style="padding: 20px 20px;">
+        <span>已购买的车辆</span>
+    </div>
+    <div style="padding: 0px 0px; background-color: #555a58">
+        <hr>
+    </div>
+    <div>
+        <table id="order_table1">
+            <tr style="background-color: #eeeeee">
+                <th>订单编号</th>
+                <th>车辆卖家</th>
+                <th>车辆编号</th>
+                <th>收货地址</th>
+                <!--<th>联系电话</th>-->
+            </tr>
+        </table>
+    </div>
+    <div style="padding-top: 20px">
+        <table id="order_table2">
+            <tr style="background-color: white" th:each="order:${orderList}">
+                <td th:text="${order.getOrderId()}"></td>
+                <td th:text="${order.getSeller()}"></td>
+                <td th:text="${order.getVehicleId()}"></td>
+                <td th:text="${order.getAddress()}"></td>
+                <!--<td th:text="${vehicle.getVehiclePrice()}+万"></td>-->
+            </tr>
+        </table>
+    </div>
+    <script src="../static/js/jquery-3.4.1.min.js"></script>
+    <script>
+    </script>
+</header>
+</html>

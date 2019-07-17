@@ -78,11 +78,11 @@
                 display: "block"
             })
         }
-
-        if ([[${vehicle_see.getVehicleOnsale()}]] == [[${user.getUserId()}]]) {
+        console.log([[${vehicle_see.getVehicleOnsale()}]]  +  [[${user.getUserId()}]]);
+        if ([[${vehicle_see.getVehicleOwner()}]] == [[${user.getUserId()}]]) {
             $(".submit_btn").css({
                 display: "none"
-            })
+            });
         }
 
         $("#submit_aprice").click(function () {

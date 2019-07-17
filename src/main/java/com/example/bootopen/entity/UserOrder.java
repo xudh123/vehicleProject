@@ -1,4 +1,10 @@
 package com.example.bootopen.entity;
 
-public class UserOrder {
+
+import lombok.Data;
+
+import java.io.Serializable;
+
+@Data
+public class UserOrder implements Serializable{
 }

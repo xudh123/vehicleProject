@@ -48,8 +48,8 @@
 <div class="maxDiv" id="maxDiv_1" style="width: 15%">
     <ul>
         <li class="choice" id="li_vehicle_user"><span>我的车辆</span></li>
-        <li class="choice"><span>我已购买的车</span></li>
-        <li class="choice"><span>我已售出的车</span></li>
+        <li class="choice" id="li_vehicle_buyed"><span>我的购买记录</span></li>
+        <li class="choice" id="li_vehicle_selled"><span>我的出售记录</span></li>
         <li class="choice"><span>我的报价</span></li>
         <li class="choice"><span>我获取的报价</span></li>
         <li class="choice" id="li_user_info"><span>个人信息</span></li>
@@ -76,6 +76,12 @@
         });
         $("#li_vehicle_user").click(function () {
             $("#maxDiv_2").load("User_info/vehicle_user.html");
+        });
+        $("#li_vehicle_buyed").click(function () {
+           $("#maxDiv_2").load("User_info/vehicle_buyed.html");
+        });
+        $("#li_vehicle_selled").click(function () {
+            $("#maxDiv_2").load("User_info/vehicle_selled.html");
         });
     });
 </script>
