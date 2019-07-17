@@ -6,6 +6,14 @@
     <link rel="stylesheet" type="text/css" href="../static/css/search_part.css">
     <link rel="stylesheet" type="text/css" href="../static/css/brand.css">
     <style>
+        html, body{
+            margin: 0px auto;
+            padding: 0px 0px auto;
+            height: 100%;
+            width: 100%;
+            float: left;
+        }
+
         .list_car {
             padding-left: 0px;
             float: left;
@@ -23,7 +31,7 @@
     </style>
 </head>
 <body>
-<div th:replace="common/header :: header"></div>
+<div style="margin-top: 0px" th:replace="common/header :: header"></div>
 <div class="search_div">
     <form action="/search_Vehicle" method="post" id="form_search">
         <input type="text" class="search" name="info_vehicle" placeholder="输入感兴趣的品牌和车型进行搜索">
@@ -63,15 +71,17 @@
         </li>
     </ul>
 </div>
+
+<form style="display: none;" id="vehicle_form" action="/forVehicle" method="post">
+    <input id="vehicle_id" name="vehicleId" value="" type="hidden">
+</form>
+
 <div style="padding: 10px 100px; text-align: center">
     <div style="background: coral;height: 50px; line-height: 50px;text-align: center">
         <span style="color: white">热门车辆</span>
     </div>
 </div>
-<div style="margin-left: 100px; padding: 0">
-    <form style="display: none;" id="vehicle_form" action="/forVehicle" method="post">
-        <input id="vehicle_id" name="vehicleId" value="" type="hidden">
-    </form>
+<div style="margin-left: 100px; padding: 0; height: 650px;">
     <ul class="list_car" th:each="vehicle:${vehicleList}">
         <div class="vehicle" th:id="${vehicle.getVehicleId()}">
             <li class="car_info"><img th:src="${vehicle.getVehicleImage()}" width="300" height="200"></li>
@@ -80,6 +90,36 @@
         </div>
     </ul>
 </div>
+<div style="padding: 10px 100px; text-align: center">
+    <div style="background: coral;height: 50px; line-height: 50px;text-align: center">
+        <span style="color: white">一口价购买</span>
+    </div>
+</div>
+<div style="margin-left: 100px; padding: 0; height: 350px;">
+    <ul class="list_car" th:each="vehicle:${APriceVehicles}">
+        <div class="vehicle" th:id="${vehicle.getVehicleId()}">
+            <li class="car_info"><img th:src="${vehicle.getVehicleImage()}" width="300" height="200"></li>
+            <li class="car_info" th:text="${vehicle.getVehicleBrand()} + ${vehicle.getVehicleType()}"></li>
+            <li class="car_info" th:text="${vehicle.getVehiclePrice()}+万"></li>
+        </div>
+    </ul>
+</div>
+
+<div style="padding: 10px 100px; text-align: center">
+    <div style="background: coral;height: 50px; line-height: 50px;text-align: center">
+        <span style="color: white">车辆拍卖区</span>
+    </div>
+</div>
+<div style="margin-left: 100px; padding: 0">
+    <ul class="list_car" th:each="vehicle:${AuctionVehicles}">
+        <div class="vehicle" th:id="${vehicle.getVehicleId()}">
+            <li class="car_info"><img th:src="${vehicle.getVehicleImage()}" width="300" height="200"></li>
+            <li class="car_info" th:text="${vehicle.getVehicleBrand()} + ${vehicle.getVehicleType()}"></li>
+            <li class="car_info" th:text="${vehicle.getVehiclePrice()}+万"></li>
+        </div>
+    </ul>
+</div>
+
 <script src="../static/js/jquery-3.4.1.min.js"></script>
 <script>
     $(document).ready(function () {

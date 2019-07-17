@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>车辆销售页面</title>
     <style>
+        html, body{
+            margin: 0px auto;
+            padding: 0px 0px auto;
+        }
         img {
             margin-top: 30px;
             margin-left: 100px;
@@ -17,6 +21,16 @@
 
         ul {
             list-style-type: none;
+        }
+
+        .submit_btn{
+            height: 50px;
+            width: 120px;
+            font-size: 16px;
+            background-color: coral;
+            color: white;
+            border: 0px;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -43,12 +57,26 @@
             <span style="color: #cccccc;">车辆检测信息介绍</span>
             <p th:text="${vehicle_see.getVehicleTestInfo()}"></p>
         </div>
+        <div style="text-align: center">
+            <form action="" method="post">
+                <input id="submit_aprice" class="submit_btn" type="submit" value="一口价购买" style="display: none;">
+                <input id="submit_acution" class="submit_btn" type="submit" value="参与竞拍" style="display: none;">
+            </form>
+        </div>
     </div>
 </div>
 <script src="../static/js/jquery-3.4.1.min.js"></script>
-<script>
+<script  th:inline="javascript">
     $(document).ready(function () {
-
+        if ([[${vehicle_see.getVehicleOnsale()}]] == 1){
+            $("#submit_aprice").css({
+                display: "block"
+            })
+        } else if ([[${vehicle_see.getVehicleOnsale()}]] == 2){
+            $("#submit_acution").css({
+                display: "block"
+            })
+        }
     });
 </script>
 </body>

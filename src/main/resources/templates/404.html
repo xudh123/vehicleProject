@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>发生错误</title>
+    <style>
+        html, body{
+            margin: 0px auto;
+            padding: 0px 0px auto;
+        }
+        #background_img{
+            background: url("../static/css/images/404.jpg") no-repeat;
+        }
+        .main_div{
+            float: left;
+        }
+        span{
+            font-size: 20px;
+            color: slateblue;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="common/header :: header"></div>
+<div class="main_div" id="background_img" style="width: 500px; height: 300px;"></div>
+<div class="main_div" style="text-align: center; padding-top: 150px; padding-left: 250px">
+    <span>您还未登录....</span>
+</div>
+</body>
+</html>

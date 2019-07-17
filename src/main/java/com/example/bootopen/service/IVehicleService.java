@@ -16,4 +16,5 @@ public interface IVehicleService {
     List<Vehicle> getVehicleByPrice(String price);
     List<Vehicle> getVehiclesByTypeFuzzyQuery(QueryWrapper<Vehicle> vehicleQueryWrapper);
     List<Vehicle> getVehiclesByOwner(int ownerId);
+    List<Vehicle> getVehiclesBySaleWay(int sale);
 }

@@ -99,4 +99,18 @@ public class VehicleController {
         model.addAttribute("vehicleList", vehicleList);
         return "buy_vehicle";
     }
+
+    /**
+     * @return sell_vehicle
+     * 用户卖车
+     */
+    @PostMapping("sell_Vehicle")
+    public String sellVehicle(Model model){
+        User user = getUser();
+        model.addAttribute("user", user);
+        if (user.getUserId() == null){
+            return "404";
+        }
+        return "index";
+    }
 }

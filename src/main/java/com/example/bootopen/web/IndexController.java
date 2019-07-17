@@ -67,7 +67,9 @@ public class IndexController {
     @RequestMapping("index")
     public String index(Model model){
 
-        List<Vehicle> vehicleList = vehicleService.getHotVehicles();     //获取车辆数据
+        List<Vehicle> vehicleList = vehicleService.getHotVehicles();     //获取部分车辆数据
+        List<Vehicle> AuctionVehicles = vehicleService.getVehiclesBySaleWay(2);             //获取拍卖车辆数据
+        List<Vehicle> APriceVehicles = vehicleService.getVehiclesBySaleWay(1);       //获取一口价销售车辆数据
         List<Brand> brandList = brandService.getBrands();  //获取品牌数据
 
 
@@ -75,6 +77,8 @@ public class IndexController {
 
         model.addAttribute("user", user);          //用户数据
         model.addAttribute("vehicleList", vehicleList);  //车辆数据
+        model.addAttribute("APriceVehicles", APriceVehicles);
+        model.addAttribute("AuctionVehicles", AuctionVehicles);
         model.addAttribute("brandList", brandList);     //品牌数据
         model.addAttribute("is_login", UserConsts.userLogined);    //是否有用户登录
         return "index";

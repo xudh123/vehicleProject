@@ -5,21 +5,21 @@
     <link rel="stylesheet" type="text/css" href="../static/css/register.css">
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
     <div id="header" style="text-align: center; height: 80px; line-height: 40px">
-        <ul>
+        <ul id="ul_1">
             <form id="index_form" action="/index" method="post">
-                <li style="cursor: pointer" id="website-name">二手车交易网</li>
+                <li style="cursor: pointer" id="website-name" class="li_1">二手车交易网</li>
             </form>
 
-            <li id="sell-car">
+            <li id="sell-car" class="li_1">
                 <button id="sell" class="header_button">卖车</button>
             </li>
             <form action="/getVehicles" method="post">
-                <li id="buy-car">
+                <li id="buy-car" class="li_1">
                     <button id="buy" class="header_button">买车</button>
                 </li>
             </form>
             <input id="is_login" type="hidden" th:value="${is_login}">
-            <li id="user_info" style="display: block;" >
+            <li id="user_info" style="display: block;"  class="li_1">
                 <form action="/toUserInfo" method="post" style="display: none;" id="to_userInfo">
                 </form>
                 <button id="user" class="header_button" th:text="${user.getUsername()}"></button>
@@ -27,7 +27,7 @@
                 </form>
                 <button id="quit" class="header_button">退出</button>
             </li>
-            <li id="login_register" style="display: none;">
+            <li id="login_register" style="display: none;" class="li_1">
                 <button id="login" class="header_button">登录</button>
                 /
                 <button id="register" class="header_button">注册</button>

@@ -31,8 +31,11 @@ public class VehicleServiceImpl implements IVehicleService {
 
     @Override
     public List<Vehicle> findAllVehicle(QueryWrapper<Vehicle> vehicleWrapper) {
-        List<Vehicle> vehicleList = new ArrayList<>();
-        vehicleList = vehicleMapper.selectList(vehicleWrapper);
+        List<Vehicle> vehicleList = redisService.getList("vehicleList", Vehicle.class);
+        if (vehicleList == null){
+            vehicleList = vehicleMapper.selectList(vehicleWrapper);
+            redisService.set("vehicleList", vehicleList);
+        }
         return vehicleList;
     }
 
@@ -83,6 +86,24 @@ public class VehicleServiceImpl implements IVehicleService {
         QueryWrapper<Vehicle> vehicleQueryWrapper = new QueryWrapper<>(vehicle);
 
         List<Vehicle> vehicleList = vehicleMapper.selectList(vehicleQueryWrapper);
+        return vehicleList;
+    }
+
+    @Override
+    public List<Vehicle> getVehiclesBySaleWay(int sale) {
+        if (sale == 1){
+            List<Vehicle> vehicleList = redisService.getList("APriceVehicles", Vehicle.class);
+            if (vehicleList == null){                //检查redis是否有需要的车辆数据
+                vehicleList = vehicleMapper.getVehiclesBySaleWay(sale);           //redis中没有该数据则从数据库获取
+                redisService.set("APriceVehicles", vehicleList);               //将热门车辆的数据存放到redis中
+            }
+            return vehicleList;
+        }
+        List<Vehicle> vehicleList = redisService.getList("AuctionVehicles", Vehicle.class);
+        if (vehicleList == null){                               //检查redis是否有需要的车辆数据
+            vehicleList = vehicleMapper.getVehiclesBySaleWay(sale);     //redis中没有该数据则从数据库获取
+            redisService.set("AuctionVehicles", vehicleList);       //将热门车辆的数据存放到redis中
+        }
         return vehicleList;
     }
 }
