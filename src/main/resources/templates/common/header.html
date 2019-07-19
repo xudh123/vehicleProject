@@ -85,7 +85,7 @@
 
     <script type="text/javascript" src="../static/js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript">
-        <!--用户登录部分js特效-->
+        /*<!--用户登录部分js特效-->*/
         $(function () {
             if($("#is_login").val() == "0"){
                 $("#user_info").css({
@@ -121,7 +121,7 @@
                 /*登录时对输入数据进行判断*/
                 $('#login_btn').click(function () {
                     if ($('#login_name').val() == "" || $('#login_pass').val() == "") {
-                        alert("用户名和密码不能为空");
+                        alert("输入项不能为空");
                         return false;
                     }
                 });
@@ -129,7 +129,7 @@
                 /*注册时对输入数据进行判断*/
                 $('#register_btn').click(function () {
                     if ($('#uName').val() == "" || $('#uPass').val() == "" || $('#uRepass').val() == "") {
-                        alert("用户名和密码不能为空");
+                        alert("输入项不能为空");
                         return false;
                     } else if ($('#uPass').val() !== $('#uRepass').val()) {
                         alert("两次输入的密码不一致");
@@ -148,10 +148,7 @@
                 $('#register').click(function () {
                     $('#register_div').show();
                 });
-
-
             });
-
         })
     </script>
 </header>
