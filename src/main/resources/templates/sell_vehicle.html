@@ -1,16 +1,214 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>车辆销售页面</title>
     <style>
-        html, body{
+        html, body {
+            height: 100%;
+            width: 100%;
             margin: 0px auto;
             padding: 0px 0px auto;
         }
+
+        #max_div {
+            padding: 50px 0px;
+            text-align: center;
+            width: 100%;
+        }
+
+        #title_span {
+            text-align: center;
+            font-size: 15px;
+            color: #555a58;
+        }
+
+        #vehicle_info {
+            width: 100%;
+            height: 700px;
+            padding: 30px 0px;
+            float: none;
+        }
+
+        input {
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            padding-left: 10px;
+            height: 30px;
+        }
+
+        textarea{
+            width: 500px;
+            height: 70px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+        }
+
+        .small_div {
+            float: left;
+            margin: 0px auto;
+            height: 100%;
+            width: 48%;
+            padding: 10px 0px;
+        }
+        .div_info{
+            margin: 0px auto;
+            height: 60px;
+/*            padding: 20px 0px;*/
+            text-align: right;
+            vertical-align: middle;
+        }
+        .div_form{
+            height: 60px;
+/*            padding: 20px 0px;*/
+            margin: 0px auto;
+            text-align: left;
+            vertical-align: middle;
+        }
+        #submit_input{
+            background-color: deepskyblue;
+            color: white;
+            height: 30px;
+            width: 100px;
+        }
+
+        /*#div_form_select{
+            line-height: 5rem;
+        }*/
+        select{
+            cursor: pointer;
+            height: 30px;
+            width: 150px;
+            color: #afbac0;
+            font-size: 16px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            outline: none;
+            /*去掉默认的下拉三角*/
+            appearance:none;
+            -moz-appearance:none;
+            -webkit-appearance:none;
+            /*添加下拉三角图标*/
+            background: url("../static/css/images/select.png") no-repeat right center transparent;
+        }
+
+        #upload_image{
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
+
+        #upload_btn{
+            cursor: pointer;
+            border: 1px solid;
+            display: inline-block;
+            font-size: 1.25em;
+            background-color: deepskyblue;
+            color: white;
+        }
+
+
     </style>
 </head>
 <body>
+<div th:replace="common/header :: header"></div>
+<div id="max_div">
+    <span id="title_span">请仔细填写车辆资料</span>
+    <form action="/addVehicle" enctype="multipart/form-data" method="post" id="addVehicle_form">
+    <div id="vehicle_info">
+        <div id="div_info" class="small_div" style="margin-right: 20px">
+            <div class="div_info"><span class="div_info_span">车辆品牌：</span></div>
+            <div class="div_info"><span class="div_info_span">车辆型号：</span></div>
+            <div class="div_info"><span class="div_info_span">车辆行驶时间：</span></div>
+            <div class="div_info"><span class="div_info_span">车辆里程：</span></div>
+            <div class="div_info"><span class="div_info_span">车辆价格：</span></div>
+            <div class="div_info"><span>车辆销售方式：</span></div>
+            <div class="div_info" style="height: 200px;"><span>上传汽车照片：</span></div>
+            <div class="div_info"><span class="div_info_span">车辆检测信息：</span></div>
+        </div>
+        <div id="div_form" class="small_div">
+                <div class="div_form"><input type="text" class="div_form_input" placeholder="" name="vehicleBrand"></div>
+                <div class="div_form"><input type="text" class="div_form_input" placeholder="" name="vehicleType"></div>
+                <div class="div_form"><input type="text" class="div_form_input" placeholder="" name="vehicleUsedTime"></div>
+                <div class="div_form"><input type="text" class="div_form_input" placeholder="" name="vehicleMileage"> 公里</div>
+                <div class="div_form"><input type="text" class="div_form_input" placeholder="" name="vehiclePrice"> 万</div>
+                <input type="hidden" id="vehicleOnsale" name="vehicleOnsale" value="1">
+                <div id="div_form_select" class="div_form"><select id="select_sale">
+                    <option name="vehicleOnsale" value="1">一口价销售</option>
+                    <option name="vehicleOnsale" value="2">拍卖销售</option>
+                </select></div>
+                <div class="div_form" style="height: 200px">
+                    <input type="hidden" id="vehicleImage" name="vehicleImage" value="">
+                    <input type="file" name="image" id="upload_image">
+                    <input type="button" id="upload_btn" value="选择文件上传">
+                    <label id="image_label"></label><br><br>
+                    <img id="img" src="../static/css/images/select.png" width="250" height="120">
+                </div>
+                <div class="div_form"><textarea class="div_form_input" placeholder="车辆检测数据" name="vehicleTestInfo"></textarea></div>
 
+        </div>
+    </div>
+
+    <div style="text-align: center; float: none;">
+        <input type="button" id="submit_input" value="提交车辆资料">
+    </div>
+    </form>
+    <script src="../static/js/jquery-3.4.1.min.js"></script>
+    <script>
+        $(function () {
+            $("#upload_btn").click(function () {        //触发文件选择功能
+                document.getElementById('upload_image').click();
+            });
+
+            $("#upload_image").change(function () {        //监听上传文件的变化，提供图片预览效果
+                var file = $(this).eq(0).val();
+                console.log(file);
+                $("#image_label").html("图片上传成功：" + file);
+                $("#img").attr("src", URL.createObjectURL($(this)[0].files[0]));
+            });
+
+            $("#select_sale").change(function () {
+                var select = $(this).val();
+                console.log(select);
+                $("#vehicleOnsale").val(select);
+            });
+
+            $("#submit_input").click(function () {        //表单提交事件
+                var inputList = $(".div_form_input");
+                var spanList = $(".div_info_span");
+                var temp = true;
+                inputList.each(function (index, value) {       //对车料数据进行一次验证，判断是否完整
+                    console.log(index, $(value).val());
+                    console.log(index, spanList[index].innerHTML);
+                    if ($(value).val() == ""){
+                        temp = false;
+                        alert(spanList[index].innerHTML + "不能为空!");
+                        return false;
+                    }
+                });
+                if (temp == false){      //判断输入资料是否完善
+                    return false;
+                }
+                var file = $("#upload_image").eq(0).val();         //验证车辆图片文件是否已选中
+                console.log(file);
+                if (!file){
+                    alert("未选择文件!");
+                    return false;
+                }
+                console.log(123);
+                if (false == confirm("确认提交车辆资料？")){     //最后一次确认提交
+                    console.log("提交失败");
+                    return false;
+                }
+                console.log(123);
+                $("#addVehicle_form").submit();
+            });
+
+        });
+    </script>
+</div>
 </body>
 </html>

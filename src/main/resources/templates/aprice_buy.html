@@ -51,7 +51,9 @@
                 alert("密码错误，请重新输入！");
                 return false;
             }
-            alert("确认购买");
+            if (false == confirm("确认购买")){
+                return false;
+            }
         });
     });
 </script>

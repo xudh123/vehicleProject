@@ -9,4 +9,5 @@ public interface IUserService {
     void saveUser(User user);
     List<User> selectUser(QueryWrapper<User> userQueryWrapper);
     void updateById(User user);
+    User selectUserById(int userId);
 }

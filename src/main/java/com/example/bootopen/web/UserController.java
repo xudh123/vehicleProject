@@ -110,6 +110,7 @@ public class UserController {
 
         List<Vehicle> MyVehicleList = vehicleService.getVehiclesByOwner(user.getUserId());
         model.addAttribute("MyVehicleList", MyVehicleList);
+        model.addAttribute("is_login", UserConsts.userLogined);
         return "user_manage";
     }
 
@@ -124,6 +125,7 @@ public class UserController {
 
         User user1 = getUser();
         model.addAttribute("user", user1);
+        model.addAttribute("is_login", UserConsts.userLogined);
         return "user_manage";
     }
 
@@ -135,7 +137,7 @@ public class UserController {
     public String getUserInfo(Model model){
         User user = getUser();
         model.addAttribute("user", user);
-
+        model.addAttribute("is_login", UserConsts.userLogined);
         return "/User_info/user_info";
     }
 
@@ -147,8 +149,26 @@ public class UserController {
     public String getUserVehicles(Model model){
         User user = getUser();
         List<Vehicle> MyVehicleList = vehicleService.getVehiclesByOwner(user.getUserId());
+
+        int size = MyVehicleList.size();
+        while (size>0){
+            if(MyVehicleList.get(size-1).getVehicleOnsale() == 0){
+                MyVehicleList.get(size-1).setVehicleStatus("未出售");
+                MyVehicleList.get(size-1).setVehicleOperate("出售");
+            }else if (MyVehicleList.get(size-1).getVehicleOnsale() == 1){
+                MyVehicleList.get(size-1).setVehicleStatus("一口价出售");
+                MyVehicleList.get(size-1).setVehicleOperate("停止出售");
+            }else {
+                MyVehicleList.get(size-1).setVehicleStatus("拍卖出售");
+                MyVehicleList.get(size-1).setVehicleOperate("停止出售");
+            }
+            System.out.println(size);
+            size--;
+        }
+
         model.addAttribute("MyVehicleList", MyVehicleList);
         model.addAttribute("user", user);
+        model.addAttribute("is_login", UserConsts.userLogined);
         return "/User_info/vehicle_user";
     }
 }

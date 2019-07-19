@@ -1,5 +1,6 @@
 package com.example.bootopen.web;
 
+import antlr.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.bootopen.Consts.UserConsts;
 import com.example.bootopen.pojo.Brand;
@@ -15,8 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.lang.String.*;
 
 @Controller
 public class VehicleController {
@@ -44,9 +50,11 @@ public class VehicleController {
     @PostMapping("/forVehicle")
     public String toVehicle(String vehicleId, Model model){
         Vehicle vehicle = new Vehicle();
-        System.out.println(vehicleId);
+
         vehicle.setVehicleId(Integer.parseInt(vehicleId));
         vehicle = vehicleService.getVehicleById(vehicle);
+        User owner = userService.selectUserById(vehicle.getVehicleOwner());
+        vehicle.setVehicleOwnerName(owner.getUsername());
         System.out.println(vehicle.getVehicleId() + vehicle.getVehicleTestInfo());
 
         User user = getUser();
@@ -141,13 +149,13 @@ public class VehicleController {
     }
 
     /**
+     * @param vehicleId 车辆编号
      * @return sell_vehicle
      * 用户卖车
      */
     @PostMapping("sell_Vehicle")
-    public String sellVehicle(Model model){
-
-        List<Vehicle> vehicleList = vehicleService.getHotVehicles();
+    public String sellVehicle(String vehicleId, Model model){
+        List<Vehicle> vehicleList = vehicleService.getHotVehicles();       //获取热门车辆
 
         User user = getUser();
         model.addAttribute("vehicleList", vehicleList);
@@ -156,6 +164,33 @@ public class VehicleController {
         if (user.getUserId() == null){
             return "404";
         }
-        return "index";
+        return "sell_vehicle";
+    }
+
+    /**
+     * @param vehicle 车辆实体类
+     * @param image 车辆图片
+     * @return vehicle 添加完成后对车辆信息进行预览
+     */
+    @PostMapping("addVehicle")
+    public String addVehicle(Vehicle vehicle, MultipartFile image, Model model) throws IOException {
+        String vehicleImage = image.getOriginalFilename();
+        if (!("").equals(vehicleImage)){
+            String s1 = vehicleImage.substring(vehicleImage.lastIndexOf('\\')+1);
+            String path = "F:/idea-project/MyFirstSpringBoot/src/main/resources/static/css/vehicle_images/" + s1;
+            String image_path = "../static/css/vehicle_images/" + s1;    //分解组合字符串创建图片的存储路径
+            image.transferTo(new File(path));
+            vehicle.setVehicleImage(image_path);           //添加图片路径到实体类
+        }
+        vehicle.setVehicleOwner(getUser().getUserId());
+        System.out.println(vehicle);
+
+        vehicleService.insertVehicle(vehicle);
+
+        model.addAttribute("user", getUser());
+        model.addAttribute("vehicle_see", vehicle);
+        model.addAttribute("is_login", UserConsts.userLogined);
+
+        return "vehicle";
     }
 }

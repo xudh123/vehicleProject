@@ -14,6 +14,8 @@
                 <th>车辆品牌</th>
                 <th>车辆车系</th>
                 <th>车辆售价</th>
+                <th>车辆状态</th>
+                <th style="background-color: white"></th>
             </tr>
         </table>
     </div>
@@ -24,6 +26,17 @@
                 <td th:text="${vehicle.getVehicleBrand()}"></td>
                 <td th:text="${vehicle.getVehicleType()}"></td>
                 <td th:text="${vehicle.getVehiclePrice()}+万"></td>
+                <td th:text="${vehicle.getVehicleStatus()}"></td>
+                <td style="padding: 3px 3px; text-align: center">
+<!--                    <form class="user_vehicle_form" action="/sell_vehicle" method="post">
+                        <input type="hidden" name="vehicleId" th:value="${vehicle.getVehicleId()}">
+                        <input style="width: 80px;height: 30px;" type="submit" th:value="${vehicle.getVehicleOperate()}">
+                    </form>-->
+                    <form class="user_vehicle_form" action="/forVehicle" method="post">
+                        <input type="hidden" name="vehicleId" th:value="${vehicle.getVehicleId()}">
+                        <input style="width: 80px;height: 30px;" type="submit" value="车辆详情">
+                    </form>
+                </td>
             </tr>
         </table>
     </div>

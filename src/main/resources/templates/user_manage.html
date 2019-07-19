@@ -45,7 +45,7 @@
 </head>
 <body>
 <div th:replace="common/header :: header"></div>
-<div class="maxDiv" id="maxDiv_1" style="width: 15%">
+<div class="maxDiv" id="maxDiv_1" style="width: 10%">
     <ul>
         <li class="choice" id="li_vehicle_user"><span>我的车辆</span></li>
         <li class="choice" id="li_vehicle_buyed"><span>我的购买记录</span></li>
@@ -55,12 +55,12 @@
         <li class="choice" id="li_user_info"><span>个人信息</span></li>
     </ul>
 </div>
-<div class="maxDiv" id="maxDiv_2" style="width: 75%">
+<div class="maxDiv" id="maxDiv_2" style="width: 80%">
 </div>
 <script src="../static/js/jquery-3.4.1.min.js"></script>
 <script>
     $(function () {
-        $("#maxDiv_2").load("User_info/user_info.html");
+        $("#maxDiv_2").load("User_info/vehicle_user.html");
         $(".choice").mouseover(function () {
             $(this).css({
                 background: "#4a4b5a"

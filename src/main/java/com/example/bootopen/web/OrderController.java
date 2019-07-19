@@ -71,10 +71,6 @@ public class OrderController {
         vehicle.setVehicleOnsale(0);                 //设置车辆已交易，不在出售状态
         vehicleService.updateVehicleById(vehicle);
 
-        redisService.delete("vehicleList");        //更新redis缓存中的车辆数据
-        redisService.delete("vehicleHotList");
-        redisService.delete("APriceVehicles");
-
         System.out.println(vehicle);
 
         model.addAttribute("vehicle_see", vehicle);
@@ -97,6 +93,7 @@ public class OrderController {
 
         model.addAttribute("orderList", orderList);
         model.addAttribute("user", user);
+        model.addAttribute("is_login", UserConsts.userLogined);
         return "/User_info/vehicle_buyed";
     }
 
@@ -113,6 +110,7 @@ public class OrderController {
 
         model.addAttribute("orderList", orderList);
         model.addAttribute("user", user);
+        model.addAttribute("is_login", UserConsts.userLogined);
         return "/User_info/vehicle_selled";
     }
 }

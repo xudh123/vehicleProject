@@ -18,4 +18,5 @@ public interface IVehicleService {
     List<Vehicle> getVehiclesByOwner(int ownerId);
     List<Vehicle> getVehiclesBySaleWay(int sale);
     void updateVehicleById(Vehicle vehicle);
+    void insertVehicle(Vehicle vehicle);
 }

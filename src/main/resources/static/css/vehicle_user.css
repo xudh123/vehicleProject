@@ -11,3 +11,14 @@ th, td{
 td{
     text-align: center;
 }
+
+input{
+    background-color: deepskyblue;
+    color: white;
+    border: 1px solid deepskyblue;
+}
+
+.user_vehicle_form{
+    float: left;
+    margin: 3px 5px;
+}

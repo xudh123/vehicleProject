@@ -43,7 +43,8 @@
            th:text="${vehicle_see.getVehicleBrand()+vehicle_see.getVehicleType()}"></p>
         <p style="font-size: 24px; color: red; margin-bottom: 20px"
            th:text="￥+${vehicle_see.getVehiclePrice()}+万"></p>
-        <div style="margin-top: 70px; display: flex">
+        <p th:text="车主：+${vehicle_see.getVehicleOwnerName()}"></p>
+        <div style="margin-top: 50px; display: flex">
             <div style="margin-right: 50px">
                 <p style="color: #cccccc">车辆已使用时间</p>
                 <span th:text="${vehicle_see.getVehicleUsedTime()}"></span>

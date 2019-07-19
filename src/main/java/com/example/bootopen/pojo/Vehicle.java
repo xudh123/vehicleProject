@@ -1,12 +1,10 @@
 package com.example.bootopen.pojo;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -15,7 +13,7 @@ import java.io.Serializable;
 public class Vehicle implements Serializable{
     public Vehicle(){}
 
-    @TableId("vehicle_id")
+    @TableId(type = IdType.AUTO)
     private Integer vehicleId;
 
     @TableField("vehicle_brand")
@@ -44,4 +42,13 @@ public class Vehicle implements Serializable{
 
     @TableField("vehicle_onsale")
     private Integer vehicleOnsale;
+
+    @TableField(exist = false)
+    private String vehicleOwnerName;    //车主用户名
+
+    @TableField(exist = false)
+    private String vehicleStatus;      //车辆状态
+
+    @TableField(exist = false)  //车辆可执行操作
+    private String vehicleOperate;
 }

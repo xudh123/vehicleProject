@@ -35,4 +35,15 @@ public class UserServiceImpl implements IUserService{
         /*更新用户数据到redis中*/
         redisService.set("user", user);
     }
+    /**
+     * @param userId 用户id
+     * @return user 查询出来的用户信息
+     * 根据用户id查找相应的用户
+     */
+    @Override
+    public User selectUserById(int userId) {
+        User user = new User();
+        user.setUserId(userId);
+        return userMapper.selectById(user);
+    }
 }

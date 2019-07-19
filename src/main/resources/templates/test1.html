@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>测试</title>
+    <style>
+        /* SELECT W/IMAGE */
+        /*select#selectTravelCity
+        {
+            width                    : 14em;
+            height                   : 3.2em;
+            padding                  : 0.2em 0.4em 0.2em 0.4em;
+            vertical-align           : middle;
+            border                   : 1px solid #94c1e7;
+            -moz-border-radius       : 0.2em;
+            -webkit-border-radius    : 0.2em;
+            border-radius            : 0.2em;
+            -webkit-appearance       : none;
+            -moz-appearance          : none;
+            appearance               : none;
+            background               : #ffffff;
+            font-family              : SimHei;
+            font-size                : 1.1em;
+            color                    : RGBA(102,102,102,0.7);
+            cursor                   : pointer;
+        }*/
+
+        /*SELECT W/DOWN-ARROW*/
+        select#selectPointOfInterest
+        {
+            width                    : 185pt;
+            height                   : 40pt;
+            line-height              : 40pt;
+            padding-right            : 20pt;
+            text-indent              : 4pt;
+            text-align               : left;
+            vertical-align           : middle;
+            border                   : 1px solid #94c1e7;
+            -moz-border-radius       : 6px;
+            -webkit-border-radius    : 6px;
+            border-radius            : 6px;
+            -webkit-appearance       : none;
+            -moz-appearance          : none;
+            appearance               : none;
+            font-family              : SimHei;
+            font-size                : 18pt;
+            font-weight              : 500;
+            color                    : RGBA(102,102,102,0.7);
+            cursor                   : pointer;
+            outline                  : none;
+        }
+
+
+        /*LABEL FOR SELECT*/
+        label#lblSelect{ position: relative; display: inline-block;}
+
+
+        /*!*DOWNWARD ARROW (25bc)*!
+        label#lblSelect::after
+        {
+            content                 : "\25bc";
+            position                : absolute;
+            top                     : 0;
+            right                   : 0;
+            bottom                  : 0;
+            width                   : 20pt;
+            line-height             : 40pt;
+            vertical-align          : middle;
+            text-align              : center;
+            background              : #94c1e7;
+            color                   : #2984ce;
+            -moz-border-radius       : 0 6px 6px 0;
+            -webkit-border-radius    : 0 6px 6px 0;
+            border-radius           : 0 6px 6px 0;
+            pointer-events          : none;
+        }*/
+    </style>
+</head>
+
+<body>
+
+
+<label id="lblSelect">
+    <select id="selectPointOfInterest" title="Select points of interest nearby">
+        <option>补充新的样式</option>
+        <option>food beverage</option>
+        <option>restaurant</option>
+        <option>shopping</option>
+        <option>taxi limo</option>
+        <option>theatre</option>
+        <option>museum</option>
+        <option>computers</option>
+    </select>
+</label>
+</body>
+</html>

@@ -109,6 +109,28 @@ public class VehicleServiceImpl implements IVehicleService {
 
     @Override
     public void updateVehicleById(Vehicle vehicle) {
+        redisService.delete("vehicleList");        //更新redis缓存中的车辆数据
+        redisService.delete("vehicleHotList");
+        redisService.delete("APriceVehicles");
+
         vehicleMapper.updateById(vehicle);                 //更新车辆状态
+    }
+
+    @Override
+    public void insertVehicle(Vehicle vehicle) {          //添加出售车辆到数据库
+
+        switch (vehicle.getVehicleOnsale()){                //根据车辆的出售方式更新redis缓存中的数据
+            case 1:
+                redisService.delete("vehicleList");        //更新redis缓存中的车辆数据
+                redisService.delete("vehicleHotList");
+                redisService.delete("APriceVehicles");
+                break;
+            case 2:
+                redisService.delete("vehicleList");        //更新redis缓存中的车辆数据
+                redisService.delete("vehicleHotList");
+                redisService.delete("AuctionVehicles");
+        }
+
+        vehicleMapper.insert(vehicle);
     }
 }
