@@ -14,6 +14,7 @@
                 <th>车辆卖家</th>
                 <th>车辆编号</th>
                 <th>收货地址</th>
+                <th>订单总额</th>
                 <!--<th>联系电话</th>-->
             </tr>
         </table>
@@ -25,6 +26,7 @@
                 <td th:text="${order.getSeller()}"></td>
                 <td th:text="${order.getVehicleId()}"></td>
                 <td th:text="${order.getAddress()}"></td>
+                <td th:text="${order.getOrderPrice()}+万"></td>
                 <!--<td th:text="${vehicle.getVehiclePrice()}+万"></td>-->
             </tr>
         </table>

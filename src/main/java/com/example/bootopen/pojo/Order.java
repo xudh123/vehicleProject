@@ -26,5 +26,6 @@ public class Order implements Serializable {
     private String realName;
     @TableField("phone_number")
     private String phoneNumber;
-
+    @TableField("order_price")
+    private Double orderPrice;
 }

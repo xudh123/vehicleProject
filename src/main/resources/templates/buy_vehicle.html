@@ -69,6 +69,7 @@
             <span id="brand1" class="filter_brand">宝马</span>
             <span id="brand2" class="filter_brand">奔驰</span>
             <span id="brand3" class="filter_brand">奥迪</span>
+            <span id="brand4" class="filter_brand">大众</span>
         </div>
     </div>
 </div>
@@ -191,13 +192,13 @@
         for (var i=0; i<prices.length; i++){
             if (prices[i].id == choice){
                 $(prices[i]).unbind("mouseover").mouseover(function () {
-                    $(brands[i]).css({
+                    $(prices[i]).css({
                         color: "white",
                         background: "coral"
                     })
                 });
                 $(prices[i]).unbind("mouseout").mouseout(function () {
-                    $(brands[i]).css({
+                    $(prices[i]).css({
                         color: "white",
                         background: "coral"
                     })

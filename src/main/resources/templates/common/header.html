@@ -39,13 +39,16 @@
     <div id="background" class="back">
         <div id="div1" class="content">
             <div id="close">
-                <span class="close-button">x</span>
-                <h2>登录</h2>
+                <div id="login_div">登录</div>
+                <div class="btn_close">X</div>
             </div>
-            <hr>
+            <br>
+            <hr style="background-color: #eeeeee">
             <div id="div2">
                 <form action="/login" method="post">
-                    <span>账号密码登录</span>
+                    <br>
+                    <span style="font-size: 16px">账号密码登录</span>
+                    <br>
                     <br>
                     <input type="text" id="login_name" name="username" class="input" placeholder="请输入用户名">
                     <br>
@@ -54,7 +57,6 @@
                     <button id="login_btn">登录</button>
                 </form>
             </div>
-            <h3 id="foot">底部内容</h3>
         </div>
     </div>
 
@@ -62,9 +64,10 @@
     <div id="register_div" class="back">
         <div id="div3" class="content">
             <div id="register_close">
-                <span class="close-button">x</span>
-                <h2>注册</h2>
+                <div id="regist_div">注册</div>
+                <div class="btn_close">X</div>
             </div>
+            <br>
             <hr>
             <div id="re_div">
                 <form action="/register" method="post">
@@ -79,7 +82,6 @@
                     <button id="register_btn">注册</button>
                 </form>
             </div>
-            <h3 id="foot_register">底部内容</h3>
         </div>
     </div>
 
@@ -141,7 +143,7 @@
                 $('#login').click(function () {
                     $('#background').show();
                 });
-                $('.close-button').click(function () {
+                $('.btn_close').click(function () {
                     $('.back').hide();
                     $('.register_div').hide();
                 });

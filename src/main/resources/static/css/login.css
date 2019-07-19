@@ -22,30 +22,14 @@
     padding: 7px 0px;
     border-radius: 3px;
     padding-left: 5px;
-    margin: 10px;
+    margin: 20px;
     width: 40%;
 }
 
-/*#div2{
-    background: white;
-    margin: auto;
-    height: 300px;
-    padding: 0 20px;
-}*/
 
 #close{
-    padding: 5px;
+    padding: 10px 0px;
     background: white;
-}
-
-.close-button{
-    /*padding-top: 20px;*/
-    margin: 10px 0px;
-    cursor: pointer;
-    padding-right: 15px;
-    color: #000000;
-    float: right;
-    font-size: 30px;
 }
 
 #foot{
@@ -55,24 +39,26 @@
     color: #c7c6cc;
 }
 
-h2{
-    margin: 10px 0;
-    color: #000000;
-    padding-left: 15px;
-    text-align: left;
+#login_div{
+    padding: 0px 10px;
+    font-size: 16px;
+    float: left;
 }
-
-h3{
-    margin: 0 0px;
-    padding-top: 15px;
+.btn_close{
+    cursor: pointer;
+    padding: 0px 10px;
+    float: right;
+    font-size: 16px;
 }
 
 #login_btn{
-    margin: 10px 0px;
+    margin: 30px 10px;
     background-color: coral;
     color: white;
     border-radius: 3px;
     border: 1px solid #ccc;
-    padding: 4px 0px;
+    padding: 10px 0px;
+    font-size: 14px;
     width: 40%;
+
 }

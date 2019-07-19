@@ -72,11 +72,33 @@ public class UserController {
         return "login_failed";
     }
 
+    /**
+     * @param user 用户数据
+     * return index
+     * 注册逻辑，注册成功后自动登录
+     */
     @PostMapping("/register")
-    @ResponseBody
-    public String register(User user){
-        userService.saveUser(user);
-        return "注册成功";
+    public String register(User user, Model model){
+
+        userService.saveUser(user);        //保存用户数据到数据库
+
+        QueryWrapper<User> userQueryWrapper = new QueryWrapper<>(user);
+        User user1 = userService.selectUser(userQueryWrapper).get(0);
+        redisService.set("user", user1);            //添加用户信息到redis中
+        UserConsts.userLogined = 1;        //设置用户登录标志为1，表示已登录
+
+        List<Vehicle> AuctionVehicles = vehicleService.getVehiclesBySaleWay(2);             //获取拍卖车辆数据
+        List<Vehicle> APriceVehicles = vehicleService.getVehiclesBySaleWay(1);       //获取一口价销售车辆数据
+        List<Vehicle> vehicleList = vehicleService.getHotVehicles();           //获得热门车辆列表
+        List<Brand> brandList = brandService.getBrands();               //获得车辆品牌列表
+
+        model.addAttribute("vehicleList", vehicleList);
+        model.addAttribute("brandList", brandList);
+        model.addAttribute("AuctionVehicles", AuctionVehicles);
+        model.addAttribute("user", user1);
+        model.addAttribute("APriceVehicles", APriceVehicles);
+        model.addAttribute("is_login", UserConsts.userLogined);
+        return "index";
     }
 
     @PostMapping("quitLogin")
