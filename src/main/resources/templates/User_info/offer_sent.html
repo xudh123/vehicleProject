@@ -1,0 +1,46 @@
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<header th:fragment="offer_sent">
+    <link rel="stylesheet" type="text/css" href="../static/css/offer_sent.css">
+    <div style="padding: 20px 20px;">
+        <span>给出的报价浏览</span>
+    </div>
+    <div style="padding: 0px 0px; background-color: #555a58">
+        <hr>
+    </div>
+    <div>
+        <table id="offer_sent_table1">
+            <tr style="background-color: #eeeeee">
+                <th>车辆编号</th>
+                <th>车辆品牌</th>
+                <th>车辆型号</th>
+                <th>车辆起价</th>
+                <th>车主</th>
+                <th>报价金额</th>
+                <th style="background-color: white; border: 1px white"></th>
+            </tr>
+        </table>
+    </div>
+    <div style="padding-top: 20px">
+        <table id="offer_sent_table2">
+            <tr style="background-color: white" th:each="offer:${offerList}">
+                <!--                <td th:text="${offer.getOfferId()}"></td>-->
+                <td th:text="${offer.getVehicleId()}"></td>
+                <td th:text="${offer.getVehicleBrand()}"></td>
+                <td th:text="${offer.getVehicleType()}"></td>
+                <td th:text="${offer.getVehiclePrice()}+万"></td>
+                <td th:text="${offer.getSellerName()}"></td>
+                <td th:text="${offer.getOfferPrice()}+  万"></td>
+                <td>
+                    <form action="" method="post">
+                        <input type="hidden" th:value="${offer.getOfferId()}" name="offerId">
+                        <input id="submit" type="submit" value="撤销报价">
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script src="../static/js/jquery-3.4.1.min.js"></script>
+    <script>
+    </script>
+</header>
+</html>

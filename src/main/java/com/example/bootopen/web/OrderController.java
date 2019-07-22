@@ -83,7 +83,7 @@ public class OrderController {
     /**
      * @param model
      * @return
-     * 加载用户订单界面
+     * 加载用户买车订单界面
      */
     @RequestMapping("/User_info/vehicle_buyed.html")
     public String getUserOrders(Model model){
@@ -101,7 +101,7 @@ public class OrderController {
     /**
      * @param model
      * @return
-     * 加载用户订单界面
+     * 加载用户卖车订单界面
      */
     @RequestMapping("/User_info/vehicle_selled.html")
     public String getSellerOrders(Model model){

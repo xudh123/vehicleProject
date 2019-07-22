@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>竞拍页面</title>
+    <style>
+        html, body{
+            margin: 0px auto;
+            padding: 0px 0px auto;
+        }
+        .max_div{
+            padding: 50px 500px;
+        }
+        .input_acution{
+            padding:20px 50px;
+        }
+        input{
+            margin-left: 30px;
+            height: 30px;
+            width: 150px;
+            border: 1px solid #555a58;
+            border-radius: 5px;
+            font-size: 14px;
+            padding-left: 15px;
+            color: #555a58;
+        }
+
+        #submit{
+            padding: 0px;
+            text-align: center;
+            height: 30px;
+            width: 80px;
+            font-size: 14px;
+            color: white;
+            background-color: deepskyblue;
+            border-radius: 5px;
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="common/header :: header"></div>
+<div class="max_div">
+    <form action="/sendOffer" method="post">
+        <!--<input type="hidden" name="offerId" th:value="${offer.getOfferId()}">-->
+        <input type="hidden" name="vehicleId" th:value="${vehicle.getVehicleId()}">
+        <div class="input_acution">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;车辆起价:&nbsp;&nbsp;&nbsp;<input id="vehicle_price" type="text" disabled="disabled" th:value="${vehicle.getVehiclePrice()}">&nbsp;&nbsp;万</div>
+        <div class="input_acution">当前最高报价:&nbsp;&nbsp;&nbsp;<input id="offer_price" type="text" value="">&nbsp;&nbsp;万</div>
+        <div class="input_acution">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你的报价:&nbsp;&nbsp;&nbsp;<input id="buyer_price" name="offerPrice" type="text" value="">&nbsp;&nbsp;万</div>
+        <div class="input_acution" style="padding-left: 160px">
+            <input type="submit" value="提交" id="submit">
+        </div>
+    </form>
+</div>
+<script>
+    $(function () {
+        var temp = [[${temp}]];
+        if (!temp){
+            $("#offer_price").val("当前无报价");
+        }else {
+            var high_price = [[${offer.getOfferPrice()}]];
+            $("#offer_price").val(high_price);
+        }
+        
+        $("#submit").click(function () {
+
+            if ($("#buyer_price").val()==""){
+                alert("输入你的报价");
+                return false;
+            }
+
+            var flag = true;
+            if(!temp){
+                var buyer_price = parseFloat($("#buyer_price").val());
+                var vehicle_price = parseFloat($("#vehicle_price").val());
+                if (buyer_price < vehicle_price){
+                    alert("输入的报价应该高于拍卖商品的起价");
+                    return false;
+                }
+            }else{
+                if ($("#buyer_price").val() < $("#offer_price").val()){
+                    alert("输入的报价应该高于当前的报价");
+                    return false
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

@@ -24,6 +24,7 @@
         }
 
         .submit_btn{
+            cursor: pointer;
             height: 50px;
             width: 120px;
             font-size: 16px;
@@ -88,6 +89,11 @@
 
         $("#submit_aprice").click(function () {
             var new_action = "/APrice_Buy";
+            $("#form_buy_vehicle").attr('action', new_action);
+            $("#form_buy_vehicle").submit();
+        });
+        $("#submit_acution").click(function () {
+            var new_action = "/Acution_Buy";
             $("#form_buy_vehicle").attr('action', new_action);
             $("#form_buy_vehicle").submit();
         });

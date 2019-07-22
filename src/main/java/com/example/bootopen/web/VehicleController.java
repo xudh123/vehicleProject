@@ -3,15 +3,9 @@ package com.example.bootopen.web;
 import antlr.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.bootopen.Consts.UserConsts;
-import com.example.bootopen.pojo.Brand;
-import com.example.bootopen.pojo.Order;
-import com.example.bootopen.pojo.User;
-import com.example.bootopen.pojo.Vehicle;
+import com.example.bootopen.pojo.*;
 import com.example.bootopen.redis.RedisService;
-import com.example.bootopen.service.IBrandService;
-import com.example.bootopen.service.IOrderService;
-import com.example.bootopen.service.IUserService;
-import com.example.bootopen.service.IVehicleService;
+import com.example.bootopen.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +29,8 @@ public class VehicleController {
     private IBrandService brandService;
     @Autowired
     private IOrderService orderService;
+    @Autowired
+    private IOfferService offerService;
     @Autowired
     private RedisService redisService;
 
@@ -118,7 +114,8 @@ public class VehicleController {
     /**
      * @param vehicle 具有车辆编号
      * @return aprice_buy 购买订单页面
-     * 用户一口价买车*/
+     * 用户一口价买车
+     */
     @PostMapping("APrice_Buy")
     public String APrice_Buy(Vehicle vehicle, Model model){
         User user = getUser();
@@ -136,16 +133,38 @@ public class VehicleController {
     }
 
     /**
-     * @param vehicleId 车辆编号
-     * @return aprice_buy 竞拍订单页面
-     * 用户一口价买车*/
+     * @param vehicle 车辆数据
+     * @param model
+     * @return acution_buy 竞拍订单页面
+     * 用户竞拍买车
+     */
     @PostMapping("Acution_Buy")
-    public String Acution_Buy(String vehicleId, Model model){
+    public String Acution_Buy(Vehicle vehicle, Model model){
         User user = getUser();
+        Vehicle vehicle1 = vehicleService.getVehicleById(vehicle);
 
+        boolean temp = true;
+        Offer offer = offerService.getOffersByVehicleId(vehicle.getVehicleId());
+        System.out.println(offer);
+        if (offer == null) {
+            temp = false;
+            offer = new Offer();
+            offer.setOfferPrice(vehicle1.getVehiclePrice());
+        }
+        System.out.println(offer);
+
+        List<Vehicle> vehicleList = vehicleService.getHotVehicles();
+
+        model.addAttribute("temp", temp);
+        model.addAttribute("offer", offer);
+        model.addAttribute("vehicle", vehicle1);
         model.addAttribute("user", user);
         model.addAttribute("is_login", UserConsts.userLogined);
-        return "aprice_buy";
+        if (user.getUserId() == null){
+            return "404";
+        }
+        model.addAttribute("vehicleList", vehicleList);
+        return "acution_buy";
     }
 
     /**

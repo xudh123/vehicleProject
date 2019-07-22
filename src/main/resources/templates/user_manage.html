@@ -50,8 +50,8 @@
         <li class="choice" id="li_vehicle_user"><span>我的车辆</span></li>
         <li class="choice" id="li_vehicle_buyed"><span>我的购买记录</span></li>
         <li class="choice" id="li_vehicle_selled"><span>我的出售记录</span></li>
-        <li class="choice"><span>我的报价</span></li>
-        <li class="choice"><span>我获取的报价</span></li>
+        <li class="choice" id="li_offer_sent"><span>我的报价</span></li>
+        <li class="choice" id="li_offer_received"><span>我获取的报价</span></li>
         <li class="choice" id="li_user_info"><span>个人信息</span></li>
     </ul>
 </div>
@@ -82,6 +82,12 @@
         });
         $("#li_vehicle_selled").click(function () {
             $("#maxDiv_2").load("User_info/vehicle_selled.html");
+        });
+        $("#li_offer_sent").click(function () {
+            $("#maxDiv_2").load("User_info/offer_sent.html");
+        });
+        $("#li_offer_received").click(function () {
+            $("#maxDiv_2").load("User_info/offer_received.html");
         });
     });
 </script>
