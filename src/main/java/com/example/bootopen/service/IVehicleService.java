@@ -19,4 +19,5 @@ public interface IVehicleService {
     List<Vehicle> getVehiclesBySaleWay(int sale);
     void updateVehicleById(Vehicle vehicle);
     void insertVehicle(Vehicle vehicle);
+    List<Vehicle> getVehicle(Vehicle vehicle);
 }

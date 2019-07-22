@@ -54,7 +54,7 @@ public class VehicleController {
         vehicle.setVehicleId(Integer.parseInt(vehicleId));
         vehicle = vehicleService.getVehicleById(vehicle);
         User owner = userService.selectUserById(vehicle.getVehicleOwner());
-        vehicle.setVehicleOwnerName(owner.getUsername());
+        vehicle.setVehicleOwnerName(owner.getUsername());                 //获取车主信息，页面显示车主用户名
         System.out.println(vehicle.getVehicleId() + vehicle.getVehicleTestInfo());
 
         User user = getUser();
@@ -170,27 +170,42 @@ public class VehicleController {
     /**
      * @param vehicle 车辆实体类
      * @param image 车辆图片
+     * @param vehicle_image 图片路径
      * @return vehicle 添加完成后对车辆信息进行预览
      */
     @PostMapping("addVehicle")
-    public String addVehicle(Vehicle vehicle, MultipartFile image, Model model) throws IOException {
+    public String addVehicle(String vehicle_image,Vehicle vehicle, MultipartFile image, Model model) throws IOException, InterruptedException {
         String vehicleImage = image.getOriginalFilename();
-        if (!("").equals(vehicleImage)){
+        String vehicleMileage = vehicle.getVehicleMileage();
+        vehicle.setVehicleMileage(vehicleMileage + "公里");
+        if (true){
             String s1 = vehicleImage.substring(vehicleImage.lastIndexOf('\\')+1);
-            String path = "F:/idea-project/MyFirstSpringBoot/src/main/resources/static/css/vehicle_images/" + s1;
+            String path = "F:\\idea-project\\MyFirstSpringBoot\\src\\main\\resources\\static\\css\\vehicle_images\\" + s1;
             String image_path = "../static/css/vehicle_images/" + s1;    //分解组合字符串创建图片的存储路径
             image.transferTo(new File(path));
             vehicle.setVehicleImage(image_path);           //添加图片路径到实体类
         }
         vehicle.setVehicleOwner(getUser().getUserId());
+        vehicle.setVehicleOwnerName(getUser().getUsername());
         System.out.println(vehicle);
 
         vehicleService.insertVehicle(vehicle);
 
+        List<Vehicle> vehicleList = vehicleService.getHotVehicles();     //获取部分车辆数据
+        List<Vehicle> AuctionVehicles = vehicleService.getVehiclesBySaleWay(2);             //获取拍卖车辆数据
+        List<Vehicle> APriceVehicles = vehicleService.getVehiclesBySaleWay(1);       //获取一口价销售车辆数据
+        List<Brand> brandList = brandService.getBrands();  //获取品牌数据
+
+
         model.addAttribute("user", getUser());
-        model.addAttribute("vehicle_see", vehicle);
+        model.addAttribute("vehicleList", vehicleList);  //车辆数据
+        model.addAttribute("APriceVehicles", APriceVehicles);
+        model.addAttribute("AuctionVehicles", AuctionVehicles);
+        model.addAttribute("brandList", brandList);     //品牌数据
         model.addAttribute("is_login", UserConsts.userLogined);
 
-        return "vehicle";
+        return "index";
     }
+
+
 }

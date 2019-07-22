@@ -130,18 +130,18 @@
             <div class="div_info"><span class="div_info_span">车辆检测信息：</span></div>
         </div>
         <div id="div_form" class="small_div">
-                <div class="div_form"><input type="text" class="div_form_input" placeholder="" name="vehicleBrand"></div>
-                <div class="div_form"><input type="text" class="div_form_input" placeholder="" name="vehicleType"></div>
-                <div class="div_form"><input type="text" class="div_form_input" placeholder="" name="vehicleUsedTime"></div>
-                <div class="div_form"><input type="text" class="div_form_input" placeholder="" name="vehicleMileage"> 公里</div>
-                <div class="div_form"><input type="text" class="div_form_input" placeholder="" name="vehiclePrice"> 万</div>
+                <div class="div_form"><input type="text" class="div_form_input"  name="vehicleBrand"></div>
+                <div class="div_form"><input type="text" class="div_form_input" style="width: 300px;" name="vehicleType"></div>
+                <div class="div_form"><input type="text" class="div_form_input"  name="vehicleUsedTime"></div>
+                <div class="div_form"><input type="text" class="div_form_input"  name="vehicleMileage"> 公里</div>
+                <div class="div_form"><input type="text" class="div_form_input"  name="vehiclePrice"> 万</div>
                 <input type="hidden" id="vehicleOnsale" name="vehicleOnsale" value="1">
                 <div id="div_form_select" class="div_form"><select id="select_sale">
                     <option name="vehicleOnsale" value="1">一口价销售</option>
                     <option name="vehicleOnsale" value="2">拍卖销售</option>
                 </select></div>
                 <div class="div_form" style="height: 200px">
-                    <input type="hidden" id="vehicleImage" name="vehicleImage" value="">
+                    <input type="hidden" id="vehicleImage" name="vehicle_image" value="">
                     <input type="file" name="image" id="upload_image">
                     <input type="button" id="upload_btn" value="选择文件上传">
                     <label id="image_label"></label><br><br>
@@ -166,6 +166,7 @@
             $("#upload_image").change(function () {        //监听上传文件的变化，提供图片预览效果
                 var file = $(this).eq(0).val();
                 console.log(file);
+                $("#vehicleImage").val(file);
                 $("#image_label").html("图片上传成功：" + file);
                 $("#img").attr("src", URL.createObjectURL($(this)[0].files[0]));
             });

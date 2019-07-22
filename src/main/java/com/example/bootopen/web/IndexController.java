@@ -47,7 +47,7 @@ public class IndexController {
     }
 
     /**
-     * @param
+     * @param model
      * @return
      * 前端测试
      */
@@ -66,6 +66,8 @@ public class IndexController {
      */
     @RequestMapping("index")
     public String index(Model model){
+
+
 
         List<Vehicle> vehicleList = vehicleService.getHotVehicles();     //获取部分车辆数据
         List<Vehicle> AuctionVehicles = vehicleService.getVehiclesBySaleWay(2);             //获取拍卖车辆数据

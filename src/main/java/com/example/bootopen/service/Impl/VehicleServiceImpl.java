@@ -133,4 +133,11 @@ public class VehicleServiceImpl implements IVehicleService {
 
         vehicleMapper.insert(vehicle);
     }
+
+    @Override
+    public List<Vehicle> getVehicle(Vehicle vehicle) {
+        QueryWrapper<Vehicle> vehicleQueryWrapper = new QueryWrapper<>(vehicle);
+        List<Vehicle> vehicleList = vehicleMapper.selectList(vehicleQueryWrapper);
+        return vehicleList;
+    }
 }
