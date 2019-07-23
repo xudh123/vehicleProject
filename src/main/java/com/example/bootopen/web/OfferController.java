@@ -14,7 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -34,7 +36,7 @@ public class OfferController {
      */
     private User getUser(){
         if(UserConsts.userLogined == 1){       //登录标志为1，
-            return redisService.get("user", User.class);
+            return redisService.get(UserConsts.userName, User.class);
         }else {
             return (new User());
         }
@@ -54,11 +56,39 @@ public class OfferController {
         Vehicle vehicle1 = vehicleService.getVehicleById(vehicle);
         User seller = userService.selectUserById(vehicle1.getVehicleOwner());
         offer.setSellerName(seller.getUsername());
+        vehicle1.setVehicleOwnerName(seller.getUsername());
 
         offerService.addOffer(offer);
 
-        return "test";
+        model.addAttribute("user", getUser());
+        model.addAttribute("vehicle_see", vehicle1);
+        model.addAttribute("is_login", UserConsts.userLogined);
+        return "vehicle";
 
+    }
+
+    @PostMapping("accept_offer")
+    public String acceptOffer(int vehicleId, int offerId, Model model){
+
+        List<Offer> offerList = offerService.getOffersByVehicleId(vehicleId);
+        for (Offer offer : offerList){
+            if (offerId == offer.getOfferId()){
+                offer.setOfferStatus("已成交");
+                offerService.updateOffer(offer);
+                continue;
+            }
+            offer.setOfferStatus("已拒绝");
+            offerService.updateOffer(offer);
+        }
+
+        User user = getUser();
+        model.addAttribute("user", user);
+
+        List<Vehicle> MyVehicleList = vehicleService.getVehiclesByOwner(user.getUserId());
+        model.addAttribute("MyVehicleList", MyVehicleList);
+        model.addAttribute("is_login", UserConsts.userLogined);
+
+        return "user_manage";
     }
 
     @RequestMapping("/User_info/offer_sent.html")

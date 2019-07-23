@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +39,10 @@ public class IndexController {
      * @return 返回一个用户数据对象
      * redis中不存在就返回一个空对象
      */
-    private User getUser(){
+    private User getUser(HttpSession session){
         if(UserConsts.userLogined == 1){       //登录标志为1，
-            return redisService.get("user", User.class);
+            /*return (User) session.getAttribute("user");*/
+            return redisService.get(UserConsts.userName, User.class);
         }else {
             return (new User());
         }
@@ -52,8 +54,8 @@ public class IndexController {
      * 前端测试
      */
     @RequestMapping("test")
-    public String test(Model model){
-        User user = getUser();
+    public String test(Model model, HttpSession session){
+        User user = getUser(session);
 
         model.addAttribute("user", user);          //用户数据
         model.addAttribute("is_login", UserConsts.userLogined);    //是否有用户登录
@@ -65,7 +67,7 @@ public class IndexController {
      * 获取前端需要的数据
      */
     @RequestMapping("index")
-    public String index(Model model){
+    public String index(Model model, HttpSession session){
 
 
 
@@ -75,7 +77,7 @@ public class IndexController {
         List<Brand> brandList = brandService.getBrands();  //获取品牌数据
 
 
-        User user = getUser();
+        User user = getUser(session);
 
         model.addAttribute("user", user);          //用户数据
         model.addAttribute("vehicleList", vehicleList);  //车辆数据
@@ -92,7 +94,7 @@ public class IndexController {
      * @return 返回符合条件的数据
      */
     @PostMapping("/search_Vehicle")
-    public String searchVehicle(String info_vehicle, Model model){
+    public String searchVehicle(String info_vehicle, Model model, HttpSession session){
         Vehicle vehicle = new Vehicle();
         /*按品牌查询，非模糊查询*/
         vehicle.setVehicleBrand(info_vehicle);
@@ -100,7 +102,7 @@ public class IndexController {
 
         List<Vehicle> vehicleList = new ArrayList<>();
         vehicleList = vehicleService.getVehiclesByBrand(vehicleQueryWrapper);   //按品牌查询
-        User user = getUser();
+        User user = getUser(session);
         model.addAttribute("user", user);
 
         if (vehicleList.isEmpty()){                  //按品牌查询为空，则根据车系进行模糊查询

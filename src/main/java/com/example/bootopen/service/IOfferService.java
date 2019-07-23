@@ -7,8 +7,10 @@ import com.example.bootopen.pojo.Vehicle;
 import java.util.List;
 
 public interface IOfferService {
-    Offer getOffersByVehicleId(int vehicleId);
+    Offer getOfferByVehicleId(int vehicleId);
+    List<Offer> getOffersByVehicleId(int vehicleId);
     List<Offer> getOffersByBuyer(User buyer);
     List<Offer> getOffersBySeller(User seller);
     void addOffer(Offer offer);
+    void updateOffer(Offer offer);
 }

@@ -31,16 +31,40 @@
                 <td th:text="${offer.getBuyerName()}"></td>
                 <td th:text="${offer.getOfferPrice()}+  万"></td>
                 <td>
-                    <form action="" method="post">
-                        <input type="hidden" th:value="${offer.getOfferId()}">
-                        <input id="submit" type="submit" value="成交">
+                    <form action="/accept_offer" method="post" style="text-align: center">
+                        <input type="hidden" name="vehicleId" th:value="${offer.getVehicleId()}">
+                        <input type="hidden" name="offerId" th:value="${offer.getOfferId()}">
+                        <input class="submit" th:id="${offer.getOfferId()}+submit" type="submit" value="成交">
+                        <input disabled="disabled" th:id="${offer.getOfferId()}+text" value="" type="text" class="input_text" style="display: none">
                     </form>
+                    <input class="offer_status" th:id="${offer.getOfferId()}" th:value="${offer.getOfferStatus()}" type="hidden">
                 </td>
             </tr>
         </table>
     </div>
     <script src="../static/js/jquery-3.4.1.min.js"></script>
     <script>
+        $(function () {
+            var offerList = $(".offer_status");
+            for (var i=0; i<offerList.length; i++){
+                var status = offerList[i].id;
+                var val = $(offerList[i]).val();
+                if (val !== "待定"){
+                    var submit_id = status + "submit";
+                    var text_id = status + "text";
+                    var submit = document.getElementById(submit_id);
+                    var text = document.getElementById(text_id);
+
+                    $(submit).css({
+                        display: "none"
+                    });
+                    $(text).css({
+                        display: "block"
+                    });
+                    $(text).val(val);
+                }
+            }
+        })
     </script>
 </header>
 </html>

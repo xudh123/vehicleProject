@@ -35,9 +35,9 @@
         <input type="hidden" name="vehicleId" th:value="${vehicle.getVehicleId()}">
         <input type="hidden" name="seller_id" th:value="${vehicle.getVehicleOwner()}">
         <input type="hidden" id="user_password" th:value="${user.getPassword()}">
-        订单地址: <input type="text" name="address" placeholder="输入地址"><br>
-        真实姓名: <input type="text" name="realName" placeholder="输入姓名"><br>
-        手机号码: <input type="text" name="phoneNumber" placeholder="输入手机号"><br>
+        订单地址: <input id="address" type="text" name="address" placeholder="输入地址"><br>
+        真实姓名: <input id="realName" type="text" name="realName" placeholder="输入姓名"><br>
+        手机号码: <input id="phoneNumber" type="text" name="phoneNumber" placeholder="输入手机号"><br>
         账号密码: <input id="password" type="password" placeholder="输入密码"><br>
         <input id="submit" type="submit" value="购买车辆">
     </form>
@@ -46,6 +46,21 @@
 <script>
     $(function () {
         $("#submit").click(function () {
+
+            if ($("#address").val() == ""){
+                alert("请输入地址!");
+                return false;
+            }else if($("#realName").val() == ""){
+                alert("请输入真实姓名!");
+                return false;
+            }else if ($("#phoneNumber").val() == ""){
+                alert("请输入手机号!");
+                return false;
+            } else if ($("#password").val() == ""){
+                alert("请输入密码!");
+                return false;
+            }
+
             var password = $("#user_password").val();
             if ($("#password").val() !== password){
                 alert("密码错误，请重新输入！");
@@ -54,6 +69,7 @@
             if (false == confirm("确认购买")){
                 return false;
             }
+            alert("报价提交成功！");
         });
     });
 </script>

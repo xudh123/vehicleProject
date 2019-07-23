@@ -85,7 +85,7 @@
         <span style="color: white">热门车辆</span>
     </div>
 </div>
-<div style="margin-left: 100px; padding: 0; height: 650px;">
+<div style="margin-left: 100px; padding-left: 100px; height: 650px;">
     <ul class="list_car" th:each="vehicle:${vehicleList}">
         <div class="vehicle" th:id="${vehicle.getVehicleId()}">
             <li class="car_info"><img th:src="${vehicle.getVehicleImage()}" width="300" height="200"></li>
@@ -99,7 +99,7 @@
         <span style="color: white">一口价购买</span>
     </div>
 </div>
-<div style="margin-left: 100px; padding: 0; height: 350px;">
+<div style="margin-left: 100px; padding-left: 100px; height: 350px;">
     <ul class="list_car" th:each="vehicle:${APriceVehicles}">
         <div class="vehicle" th:id="${vehicle.getVehicleId()}">
             <li class="car_info"><img th:src="${vehicle.getVehicleImage()}" width="300" height="200"></li>
@@ -114,7 +114,7 @@
         <span style="color: white">车辆拍卖区</span>
     </div>
 </div>
-<div style="margin-left: 100px; padding: 0">
+<div style="margin-left: 100px; padding-left: 100px;">
     <ul class="list_car" th:each="vehicle:${AuctionVehicles}">
         <div class="vehicle" th:id="${vehicle.getVehicleId()}">
             <li class="car_info"><img th:src="${vehicle.getVehicleImage()}" width="300" height="200"></li>

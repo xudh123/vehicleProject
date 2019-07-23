@@ -59,8 +59,7 @@
     <div style="float: left; padding-left:15px; margin-top: 40px; margin-bottom: 5px; margin-left: 150px; display: flex;
                         height: 20px;">
         <span style="padding: 5px 5px; color: #56585a; background-color: #dfe1e3;
-              text-align: center; height: 20px; line-height: 20px">品牌:
-        </span>
+              text-align: center; height: 20px; line-height: 20px">品牌:</span>
         <div style="display: flex;float:left; text-align: center; height: 20px;
                                 padding: 5px 20px;">
             <form id="brand_form" action="/getVehiclesByBrand" method="post" style="display: none">
@@ -77,7 +76,7 @@
     <div style="float: left; padding-left:15px; margin: 10px 150px; display: flex;
                         height: 20px;">
         <span style="padding: 5px 5px; color: #56585a; background-color: #dfe1e3;
-                        text-align: center; height: 20px; line-height: 20px">价格</span>
+                        text-align: center; height: 20px; line-height: 20px">价格:</span>
         <div style="display: flex;float:left; text-align: center; height: 20px;
                                 padding: 5px 20px;">
             <form id="price_form" action="/getVehiclesByPrice" method="post" style="display: none;">
@@ -89,7 +88,7 @@
         </div>
     </div>
 </div>
-<div class="vehicles" style="margin: 10px 150px; padding-left: 0px">
+<div class="vehicles" style="margin: 10px 150px; padding-left: 30px">
     <ul class="list_vehicle" th:each="vehicle:${vehicleList}" style="list-style-type: none;">
         <div class="vehicle" style="cursor: pointer; width: 300px" th:id="${vehicle.getVehicleId()}">
             <form th:id="form_vehicle+${vehicle.getVehicleId()}" action="/forVehicle" method="post">

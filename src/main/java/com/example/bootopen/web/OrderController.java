@@ -37,7 +37,7 @@ public class OrderController {
      */
     private User getUser(){
         if(UserConsts.userLogined == 1){       //登录标志为1，
-            return redisService.get("user", User.class);
+            return redisService.get(UserConsts.userName, User.class);
         }else {
             return (new User());
         }

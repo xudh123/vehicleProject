@@ -14,8 +14,9 @@
                 <th>车辆品牌</th>
                 <th>车辆型号</th>
                 <th>车辆起价</th>
-                <th>车主</th>
+                <th>收价方</th>
                 <th>报价金额</th>
+                <th>报价状态</th>
                 <th style="background-color: white; border: 1px white"></th>
             </tr>
         </table>
@@ -30,17 +31,37 @@
                 <td th:text="${offer.getVehiclePrice()}+万"></td>
                 <td th:text="${offer.getSellerName()}"></td>
                 <td th:text="${offer.getOfferPrice()}+  万"></td>
+                <td th:text="${offer.getOfferStatus()}"></td>
                 <td>
-                    <form action="" method="post">
+                    <form th:id="${offer.getOfferId()}+form" action="" method="post" style="display: none">
                         <input type="hidden" th:value="${offer.getOfferId()}" name="offerId">
-                        <input id="submit" type="submit" value="撤销报价">
+                        <input class="submit" th:id="${offer.getOfferId()}+submit" type="submit" value="填写订单">
                     </form>
+                    <input class="offer_status" th:id="${offer.getOfferId()}" th:value="${offer.getOfferStatus()}" type="hidden">
                 </td>
             </tr>
         </table>
     </div>
     <script src="../static/js/jquery-3.4.1.min.js"></script>
     <script>
+        var statusList = $(".offer_status");
+        console.log(statusList.length);
+        for (var i=0; i<statusList.length; i++){
+            console.log(1234);
+            var status = statusList[i].id
+            var val = $(statusList[i]).val();
+            console.log(status);
+            console.log(val);
+            if (val == "已成交"){
+                console.log(123);
+                var form_id = status + "form";
+                console.log(form_id)
+                var form = document.getElementById(form_id);
+                $(form).css({
+                    display: "block"
+                });
+            }
+        }
     </script>
 </header>
 </html>

@@ -21,6 +21,8 @@ public class Offer implements Serializable {
     private String sellerName;
     @TableField("offer_price")
     private Double offerPrice;
+    @TableField("offer_status")
+    private String offerStatus;
 
     @TableField(exist = false)
     private String vehicleBrand;
