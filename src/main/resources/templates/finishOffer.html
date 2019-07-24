@@ -2,45 +2,44 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>一口价购买</title>
+    <title>填写订单</title>
     <style>
-        input {
-            margin: 20px 20px;
-            border: 1px solid gray;
+        input{
+            margin: 20px 30px;
+            width: 200px;
+            height: 40px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            padding-left: 20px;
+            font-size: 15px;
+        }
+
+        #submit{
+            padding-left: 0;
+            width: 100px;
             height: 30px;
-            padding-left: 5px;
-            color: #56585a;
-            border-radius: 5px;
-        }
-
-        .submit{
-            height: 50px;
-            width: 120px;
-            font-size: 16px;
-            background-color: coral;
+            background-color: deepskyblue;
             color: white;
-            border: 0px;
-            border-radius: 5px;
         }
-
     </style>
 </head>
 <body>
-<div th:replace="common/header :: header"></div>
+<div style="margin: 0px auto;" th:replace="common/header :: header"></div>
 <div style="text-align: center; padding-top: 30px">
     <div style="padding-bottom: 30px">
-        <span>购买的车辆：</span><span th:text="${vehicle.getVehicleBrand()+vehicle.getVehicleType()}"></span>
+        <span>报价车辆：</span><span th:text="${vehicle.getVehicleBrand()+vehicle.getVehicleType()}"></span>
     </div>
-    <form action="/finish_order" method="post">
+    <form action="/finish_offer" method="post">
         <input type="hidden" name="vehicleId" th:value="${vehicle.getVehicleId()}">
         <input type="hidden" name="seller_id" th:value="${vehicle.getVehicleOwner()}">
         <input type="hidden" id="user_password" th:value="${user.getPassword()}">
-        订单地址: <input id="address" type="text" name="address" placeholder="输入地址"><br>
-        真实姓名: <input id="realName" type="text" name="realName" placeholder="输入姓名"><br>
-        手机号码: <input id="phoneNumber" type="text" name="phoneNumber" placeholder="输入手机号"><br>
-        账号密码: <input id="password" type="password" placeholder="输入密码"><br>
-        车辆价格: <input id="price" type="text" disabled="disabled" th:value="${vehicle.getVehiclePrice()}+万"><br>
-        <input id="submit" type="submit" value="购买车辆">
+        <input type="hidden" name="orderPrice" th:value="${offerPrice}">
+        报价收货地址: <input id="address" type="text" name="address" placeholder="输入地址"><br>
+        买方真实姓名: <input id="realName" type="text" name="realName" placeholder="输入真实姓名"><br>
+        买方手机号码: <input id="phoneNumber" type="text" name="phoneNumber" placeholder="输入手机号"><br>
+        买方账号密码: <input id="password" type="password" placeholder="输入密码"><br>
+        交易成交价格: <input id="price" type="text" disabled="disabled" th:value="${offerPrice}+万"><br>
+        <input id="submit" type="submit" value="完成填写">
     </form>
 </div>
 <script src="../static/js/jquery-3.4.1.min.js"></script>
@@ -67,7 +66,7 @@
                 alert("密码错误，请重新输入！");
                 return false;
             }
-            if (false == confirm("确认购买")){
+            if (false == confirm("确认提交订单")){
                 return false;
             }
             alert("订单提交成功！");

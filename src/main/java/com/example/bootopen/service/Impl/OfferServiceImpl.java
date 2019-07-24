@@ -33,6 +33,14 @@ public class OfferServiceImpl implements IOfferService {
         return offerList.get(0);      //返回报价最高的offer
     }
 
+    @Override
+    public Offer getOfferByOfferId(int offerId) {
+        Offer offer = new Offer();
+        offer.setOfferId(offerId);
+
+        return offerMapper.selectById(offer);
+    }
+
     /**
      * @param vehicleId 车辆编号
      * @return offerList

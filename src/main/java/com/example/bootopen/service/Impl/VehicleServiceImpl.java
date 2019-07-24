@@ -112,6 +112,7 @@ public class VehicleServiceImpl implements IVehicleService {
         redisService.delete("vehicleList");        //更新redis缓存中的车辆数据
         redisService.delete("vehicleHotList");
         redisService.delete("APriceVehicles");
+        redisService.delete("AcutionVehicles");
 
         vehicleMapper.updateById(vehicle);                 //更新车辆状态
     }

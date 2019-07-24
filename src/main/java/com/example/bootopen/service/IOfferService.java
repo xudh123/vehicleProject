@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface IOfferService {
     Offer getOfferByVehicleId(int vehicleId);
+    Offer getOfferByOfferId(int offerId);
     List<Offer> getOffersByVehicleId(int vehicleId);
     List<Offer> getOffersByBuyer(User buyer);
     List<Offer> getOffersBySeller(User seller);

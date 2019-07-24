@@ -33,11 +33,11 @@
                 <td th:text="${offer.getOfferPrice()}+  万"></td>
                 <td th:text="${offer.getOfferStatus()}"></td>
                 <td>
-                    <form th:id="${offer.getOfferId()}+form" action="" method="post" style="display: none">
+                    <form th:id="${offer.getOfferId()}+form" action="/finishOffer" method="post" style="display: none">
                         <input type="hidden" th:value="${offer.getOfferId()}" name="offerId">
                         <input class="submit" th:id="${offer.getOfferId()}+submit" type="submit" value="填写订单">
                     </form>
-                    <input class="offer_status" th:id="${offer.getOfferId()}" th:value="${offer.getOfferStatus()}" type="hidden">
+                    <input class="offer_status" th:id="${offer.getOfferId()}" th:value="${offer.getOfferStatus()+offer.getVehicleOnSale()}" type="hidden">
                 </td>
             </tr>
         </table>
@@ -48,14 +48,14 @@
         console.log(statusList.length);
         for (var i=0; i<statusList.length; i++){
             console.log(1234);
-            var status = statusList[i].id
+            var status = statusList[i].id;
             var val = $(statusList[i]).val();
             console.log(status);
             console.log(val);
-            if (val == "已成交"){
+            if (val == "已成交1" || val == "已成交2"){
                 console.log(123);
                 var form_id = status + "form";
-                console.log(form_id)
+                console.log(form_id);
                 var form = document.getElementById(form_id);
                 $(form).css({
                     display: "block"

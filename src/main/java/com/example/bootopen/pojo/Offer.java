@@ -30,4 +30,6 @@ public class Offer implements Serializable {
     private String vehicleType;
     @TableField(exist = false)
     private Double vehiclePrice;
+    @TableField(exist = false)
+    private Integer vehicleOnSale;
 }
