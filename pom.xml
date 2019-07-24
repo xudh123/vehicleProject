@@ -17,6 +17,7 @@
     <modules>
         <module>Eureka</module>
         <module>Client</module>
+        <module>admin</module>
     </modules>
 
     <properties>

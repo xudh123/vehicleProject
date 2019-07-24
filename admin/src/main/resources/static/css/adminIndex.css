@@ -1,0 +1,49 @@
+#index{
+    position: absolute;
+    left:0px;
+    right:0px;
+    top:100px;
+    bottom:0px;
+    overflow:auto;
+    background-color: transparent;
+}
+
+#list_div{
+    margin: 0 auto;
+    position: absolute;
+    left: 0px;
+    right: 90%;
+    top: 0px;
+    bottom: 0px;
+    overflow: auto;
+    background-color: skyblue;
+    color: white;
+}
+#manage_div{
+    margin: 0 auto;
+    position: absolute;
+    left: 10%;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    overflow: auto;
+}
+ul{
+    width: 100%;
+    margin: 0px auto;
+    margin-top: 30px;
+    list-style-type: none;
+    padding: 0px;
+}
+li{
+    margin: 10px 0px;
+    cursor: pointer;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    /*padding: 20px 0px;*/
+}
+.manage{
+    font-size: 18px;
+    margin: 20px 10px;
+}

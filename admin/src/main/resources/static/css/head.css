@@ -1,0 +1,10 @@
+#head{
+    background-color: deepskyblue;
+    color: white;
+    padding: 30px 20px;
+    height: 40px;
+}
+#title{
+    font-size: 24px;
+    font-family: 'DejaVu Sans Mono', monospace;
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>管理界面</title>
+    <link href="../static/css/adminIndex.css" type="text/css" rel="stylesheet">
+    <style>
+        body{
+            margin: 0px auto;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="common/head :: header"></div>
+<div id="index">
+    <div id="list_div">
+        <ul>
+            <li class="li_manage"><span class="manage">用户管理</span></li>
+            <li class="li_manage"><span class="manage">车源管理</span></li>
+            <li class="li_manage"><span class="manage">车商管理</span></li>
+        </ul>
+    </div>
+    <div id="manage_div"></div>
+</div>
+<script src="../static/js/jquery-3.4.1.min.js"></script>
+<script src="../static/js/adminIndex.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <style>
+        #max_div{
+            position: absolute;
+            left:0px;
+            right:0px;
+            top:0px;
+            bottom:0px;
+            overflow:auto;
+            background: url("../static/image/bg.png");
+        }
+
+        #login_div{
+            margin: 200px 500px;
+            height: 400px;
+            background-color: white;
+            text-align: center;
+            padding: 0px 0px;
+        }
+        input{
+            padding-left: 10px;
+            width: 200px;
+            height: 30px;
+            border: 1px solid #000000;
+            border-radius: 5px;
+            color: dimgray;
+            margin: 30px 10px;
+        }
+        #title_div{
+            text-align: center;
+            padding: 30px 0px;
+            margin: 0px;
+            background-color: deepskyblue;
+            color: white;
+        }
+        span{
+            margin: 30px 0px;
+            font-size: 22px;
+        }
+        #submit{
+            width: 70px;
+            height: 30px;
+            background-color: deepskyblue;
+            color: white;
+            border: 1px solid white;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<div id="max_div">
+    <div id="login_div">
+        <input type="hidden" id="message" th:value="${message}">
+        <form action="/login.do" method="post">
+            <div id="title_div">
+                <span>二手车交易网管理系统</span>
+            </div><br>
+            用户名:<input id="username" name="userName" type="text" placeholder="用户名"><br>
+            密码:&nbsp;&nbsp;&nbsp;<input id="password" name="password" type="password" placeholder="密码"><br>
+            <input id="submit" type="submit" value="登录">
+        </form>
+    </div>
+</div>
+<script src="../static/js/jquery-3.4.1.min.js"></script>
+<script th:inline="javascript">
+    $(function () {
+
+        $("#submit").click(function () {
+            var username = $("#username").val();
+            var password = $("#password").val();
+
+            if (username == ""){
+                alert("请输入用户名!");
+                return false;
+            }else if (password == ""){
+                alert("请输入密码!");
+                return false;
+            }
+        });
+
+        var message = [[${message}]];
+        String(message);
+        if (message !== ""){
+            alert(message);
+        }
+    })
+</script>
+</body>
+</html>
