@@ -227,5 +227,21 @@ public class VehicleController {
         return "index";
     }
 
+    @PostMapping("updateVehicle")
+    public String updateVehicle(Vehicle vehicle, Model model){
 
+        int vehicleOnsale = vehicle.getVehicleOnsale();
+        vehicle = vehicleService.getVehicleById(vehicle);
+
+        vehicle.setVehicleOnsale(vehicleOnsale);
+        vehicleService.updateVehicleById(vehicle);
+
+        User user = getUser();
+        List<Vehicle> MyVehicleList = vehicleService.getVehiclesByOwner(user.getUserId());
+        model.addAttribute("user", user);
+        model.addAttribute("MyVehicleList", MyVehicleList);
+        model.addAttribute("is_login", UserConsts.userLogined);
+
+        return "user_manage";
+    }
 }

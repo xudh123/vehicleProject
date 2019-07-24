@@ -16,6 +16,7 @@
                 <th>车辆售价</th>
                 <th>车辆状态</th>
                 <th style="background-color: white"></th>
+                <th style="background-color: white"></th>
             </tr>
         </table>
     </div>
@@ -32,9 +33,23 @@
                         <input type="hidden" name="vehicleId" th:value="${vehicle.getVehicleId()}">
                         <input style="width: 80px;height: 30px;" type="submit" th:value="${vehicle.getVehicleOperate()}">
                     </form>-->
+                    <input type="hidden" class="vehicleId" th:id="${vehicle.getVehicleId()}" th:value="${vehicle.getVehicleOnsale()}">
                     <form class="user_vehicle_form" action="/forVehicle" method="post">
                         <input type="hidden" name="vehicleId" th:value="${vehicle.getVehicleId()}">
-                        <input style="width: 80px;height: 30px;" type="submit" value="车辆详情">
+                        <input style="margin-left: 40px;width: 80px;height: 30px;" type="submit" value="车辆详情">
+                    </form>
+                </td>
+                <td style="padding: 3px 3px; text-align: left">
+                    <form th:id="${vehicle.getVehicleId()}+form1" action="/updateVehicle" method="post" style="display: none">
+                        <input type="hidden" name="vehicleId" th:value="${vehicle.getVehicleId()}">
+                        <input type="hidden" name="vehicleOnsale" value="0">
+                        <input style="width: 80px;height: 30px;" type="submit" value="取消出售">
+                    </form>
+                    <form th:id="${vehicle.getVehicleId()}+form2" action="/updateVehicle" method="post" style="display: none;">
+                        <input type="hidden" name="vehicleId" th:value="${vehicle.getVehicleId()}">
+                        <input type="hidden" name="vehicleOnsale" class="onSale" value="" >
+                        <input style="width: 80px;height: 30px;" type="submit" class="submit1" value="一口价出售">
+                        <input style="width: 80px;height: 30px;" type="submit" class="submit2" value="拍卖出售">
                     </form>
                 </td>
             </tr>
@@ -42,6 +57,32 @@
     </div>
     <script src="../static/js/jquery-3.4.1.min.js"></script>
     <script>
+        $(function () {
+           var inputList = $(".vehicleId");
+           for (var i=0; i<inputList.length; i++){
+                var id = inputList[i].id;
+                var value = $(inputList[i]).val();
+                if (value == 0){
+                    var formId = id + "form2";
+                    var form1 = document.getElementById(formId);
+                    $(form1).css({
+                        display: "block"
+                    })
+                }else {
+                    var formId = id + "form1";
+                    var form2 = document.getElementById(formId);
+                    $(form2).css({
+                        display: "block"
+                    })
+                }
+           }
+           $(".submit1").click(function () {
+               $(".onSale").val(1);
+           });
+           $(".submit2").click(function () {
+               $(".onSale").val(2);
+           });
+        });
     </script>
 </header>
 </html>
