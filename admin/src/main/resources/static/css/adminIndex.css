@@ -8,6 +8,7 @@
     background-color: transparent;
 }
 #button_quit{
+    cursor: pointer;
     margin-left: 80%;
     background-color: transparent;
     color: white;

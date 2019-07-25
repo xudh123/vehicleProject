@@ -1,6 +1,6 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <link rel="stylesheet" type="text/css" href="../static/css/admin_manage/brand_manage.css">
-<div th:fragment="brand_manage">
+<div>
     <!--<span id="span_brand_manage">品牌管理</span>-->
     <table id="brand_table" cellspacing="0">
         <tr id="th_tr">
@@ -22,6 +22,7 @@
         </tr>
     </table>
     <button id="add_brand">添加品牌</button>
+    <span th:text="${message}"></span>
     <br>
     <form method="post" action="/addBrand.do">
     <table id="table_addItem" style="display: none;">

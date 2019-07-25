@@ -1,4 +1,46 @@
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<link rel="stylesheet" type="text/css" href="../static/css/admin_manage/user_manage.css">
 <div>
-
+    <table id="user_table" cellspacing="0">
+        <tr id="th_tr">
+            <th>用户编号</th>
+            <th>用户名</th>
+            <th>用户密码</th>
+            <th>操作</th>
+        </tr>
+        <tr class="td_tr" th:each="user:${userList}">
+            <td th:text="${user.getUserId()}"></td>
+            <td th:text="${user.getUserName()}"></td>
+            <td th:text="${user.getPassword()}"></td>
+            <td>
+                <form method="post" action="/delUser.do">
+                    <input type="hidden" name="userId" th:value="${user.getUserId()}">
+                    <input type="submit" value="删除" class="submit_btn">
+                </form>
+            </td>
+        </tr>
+    </table>
+    <button id="add_user">添加用户</button>
+    <span th:text="${message}"></span>
+    <br>
+    <form method="post" action="/addUser.do">
+        <table id="table_addItem" style="display: none;">
+            <tr style="padding: 10px 0px;">
+                <td>
+                    <input style="padding-left: 10px; margin: 10px 20px; width: 250px; height: 30px;" type="text" name="userId" id="user_id" placeholder="用户编号">
+                </td>
+                <td>
+                    <input style="padding-left: 10px; margin: 10px 20px; width: 250px; height: 30px;" type="text" name="userName" id="user_name" placeholder="用户名">
+                </td>
+                <td>
+                    <input style="padding-left: 10px; margin: 10px 20px; width: 250px; height: 30px;" type="text" name="password" id="password" placeholder="用户密码">
+                </td>
+                <td>
+                    <input style="margin: 10px 60px; width: 60px; height: 30px;background-color: deepskyblue; border: 1px solid white; color: white" id="submit_addUser" type="submit" value="保存">
+                    <input style="margin: 10px 10px; width: 60px; height: 30px;background-color: red; border: 1px solid white; color: white" id="quit" type="submit" value="取消">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <script src="../static/js/admin_manage/user_manage.js"></script>
 </div>
