@@ -14,16 +14,19 @@
 <body>
 <div th:replace="common/head :: header"></div>
 <div id="index">
+    <input type="hidden" id="input_replace" th:value="${replace}">
     <div id="list_div">
         <ul>
-            <li class="li_manage"><span class="manage">用户管理</span></li>
-            <li class="li_manage"><span class="manage">车源管理</span></li>
-            <li class="li_manage"><span class="manage">车商管理</span></li>
+            <li id="user_manage" class="li_manage"><span class="manage">用户管理</span></li>
+            <li id="vehicle_manage" class="li_manage"><span class="manage">车源管理</span></li>
+            <li id="brand_manage" class="li_manage"><span class="manage">品牌管理</span></li>
+            <li id="info_manage" class="li_manage"><span class="manage">信息管理</span></li>
         </ul>
     </div>
     <div id="manage_div"></div>
 </div>
 <script src="../static/js/jquery-3.4.1.min.js"></script>
 <script src="../static/js/adminIndex.js"></script>
+<script src="../static/js/head.js"></script>
 </body>
 </html>

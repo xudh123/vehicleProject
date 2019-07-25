@@ -1,0 +1,43 @@
+#span_brand_manage{
+    margin-left: 20px;
+    font-size: 18px;
+}
+
+#brand_table{
+    margin-top: 20px;
+}
+
+#th_tr{
+    width: 100%;
+    background-color: aliceblue;
+}
+
+th{
+    padding: 10px 100px;
+    font-size: 18px;
+    color: #575a53;
+    font-weight: 500;
+}
+td{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    /*padding: 10px 100px;*/
+}
+
+.submit_btn{
+    background-color: red;
+    color: white;
+    border: 1px solid white;
+    width: 60px;
+    height: 25px;
+}
+
+#add_brand{
+    height: 30px;
+    width: 80px;
+    background-color: deepskyblue;
+    color: white;
+    border: 1px solid transparent;
+    margin: 10px;
+}

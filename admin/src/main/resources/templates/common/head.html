@@ -3,5 +3,9 @@
     <link rel="stylesheet" type="text/css" href="../static/css/head.css">
     <div id="head">
         <span id="title">二手车交易网管理系统</span>
+        <button id="button_quit">退出</button>
+        <form action="/quitLogin" method="post" id="quitForm">
+            <input type="hidden" name="adminUserName" th:value="${admin.getAdminUserName()}">
+        </form>
     </div>
 </header>
